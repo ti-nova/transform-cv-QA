@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>TestNG Report</title>
+<style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}.invisible {display:none}</style>
+</head>
+<body>
+<table>
+<tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
+<tr><th colspan="8">Command line suite</th></tr>
+<tr><td><a href="#t0">Command line test</a></td><td class="num">0</td><td class="num attn">1</td><td class="num">0</td><td class="num attn">2</td><td class="num">12.170</td><td></td><td></td></tr>
+</table>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Command line suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Command line test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">testClass.HomePageTest</td><td><a href="#m0">setup</a></td><td rowspan="1">1776091108771</td><td rowspan="1">1986</td></tr><tr><th colspan="4">Command line test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="2">testClass.LogInPageTest</td><td><a href="#m1">ingresoUsuarioCorrecto</a></td><td rowspan="1">1776091101328</td><td rowspan="1">6</td></tr><tr class="failedeven"><td><a href="#m2">ingresoUsuarioIncorrecto</a></td><td rowspan="1">1776091103572</td><td rowspan="1">5127</td></tr><tr><th colspan="4">Command line test &#8212; skipped (configuration methods)</th></tr><tr class="skippedeven"><td rowspan="1">testClass.HomePageTest</td><td><a href="#m3">tearDown</a></td><td rowspan="1">1776091110758</td><td rowspan="1">0</td></tr><tr><th colspan="4">Command line test &#8212; skipped</th></tr><tr class="skippedeven"><td rowspan="1">testClass.HomePageTest</td><td><a href="#m4">cambiarContraseña</a></td><td rowspan="1">1776091110758</td><td rowspan="1">0</td></tr></tbody>
+</table>
+<h2>Command line test</h2><h3 id="m0">testClass.HomePageTest#setup</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NoClassDefFoundError: Could not initialize class config.Config
+	at testClass.HomePageTest.setup(HomePageTest.java:41)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at testSuite.Prueba.main(Prueba.java:16)
+Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
+	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
+	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
+	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
+	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
+	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
+	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
+	at config.Config.&lt;clinit&gt;(Config.java:6)
+	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
+	... 20 more
+... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">testClass.LogInPageTest#ingresoUsuarioCorrecto</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.ExceptionInInitializerError
+	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at testSuite.Prueba.main(Prueba.java:16)
+Caused by: io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath
+	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
+	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
+	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
+	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
+	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
+	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
+	at config.Config.&lt;clinit&gt;(Config.java:6)
+	... 25 more
+	Suppressed: io.github.cdimascio.dotenv.DotenvException: Could not find .\.env on the file system (working directory: D:\transform-cv-QA)
+		at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:60)
+		... 30 more
+... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">testClass.LogInPageTest#ingresoUsuarioIncorrecto</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=146.0.7680.178)
+Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [b6eedfe3cf282adb214e44865d7327ec, findElement {value=//div[contains(text(),&apos;error&apos;) or contains(text(),&apos;incorrect&apos;)], using=xpath}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55081}, goog:processID: 13228, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55081/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b6eedfe3cf282adb214e44865d7327ec
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:222)
+	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:215)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
+	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:52)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at testSuite.Prueba.main(Prueba.java:16)
+... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">testClass.HomePageTest#tearDown</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">testClass.HomePageTest#cambiarContraseña</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NoClassDefFoundError: Could not initialize class config.Config
+	at testClass.HomePageTest.setup(HomePageTest.java:41)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at testSuite.Prueba.main(Prueba.java:16)
+Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
+	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
+	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
+	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
+	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
+	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
+	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
+	at config.Config.&lt;clinit&gt;(Config.java:6)
+	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
+	... 20 more
+... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+</body>
+</html>
