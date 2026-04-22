@@ -1,88 +1,144 @@
-# 🧪 Automatización QA - Transform CV
+# Testing
 
-Proyecto de automatización de pruebas funcionales para la aplicación web **Transform CV**, utilizando Selenium WebDriver, TestNG y Java.
+Proyecto de automatización de pruebas UI para `tranform-cv.vercel.app` usando Java, Selenium WebDriver, TestNG y Gradle.
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - Java
-- Selenium WebDriver
-- TestNG
 - Gradle
-- Dotenv (manejo de variables de entorno)
+- Selenium WebDriver `4.41.0`
+- TestNG `7.10.2`
+- dotenv-java `3.0.0`
 
-## 📂 Estructura del proyecto
+## Objetivo
 
-src
-└── test
-     └── java
-          ├── config
-          │    └── Config.java
-          ├── page
-          │    ├── LogInPage.java
-          │    └── HomePage.java
-          ├── testClass
-          │    ├── LogInPageTest.java
-          │    └── HomePageTest.java
-          └── testSuite
-               └── Prueba.java
+Este proyecto automatiza flujos funcionales de la aplicación, siguiendo una estructura basada en:
 
+- `Page Object Model`
+- componentes reutilizables
+- modales reutilizables
+- tests organizados por módulo funcional
 
-## ⚙️ Configuración
+Actualmente incluye automatización para escenarios como:
 
-### 1. Clonar el repositorio
+- autenticación de usuario
+- cambio de contraseña
+- navegación a la página de transformación
 
-git clone https://github.com/tu-usuario/tu-repo.git
-cd tu-repo
+## Estructura del proyecto
 
-### 2. Crear archivo `.env`
+```text
+testing/
+├── src/
+│   └── test/
+│       └── java/
+│           ├── config/
+│           │   └── Config.java
+│           ├── page/
+│           │   ├── BasePage.java
+│           │   ├── LogInPage.java
+│           │   ├── TranformPage.java
+│           │   ├── components/
+│           │   └── modals/
+│           └── testClass/
+│               ├── auth/
+│               │   └── LogInPageTest.java
+│               └── tranform/
+│                   └── TranformPageTest.java
+├── build.gradle
+├── settings.gradle
+├── gradlew
+├── gradlew.bat
+└── .env
+```
+## Configuración
+Este proyecto usa variables de entorno cargadas desde un archivo .env.
 
-En la raíz del proyecto:
+### Archivo .env
+Crear un archivo .env en la raíz del proyecto con este formato:
 
-USER_EMAIL=tu_email
+USER_EMAIL=tu_correo@dominio.com
 USER_PASSWORD=tu_password
 
-### 3. Instalar dependencias
+### Clase de configuración
+Las credenciales se leen desde config.Config:
 
-Si usas Gradle:
+Config.getUserEmail()
+Config.getUserPassword()
+### Requisitos
+Antes de ejecutar las pruebas, asegúrate de tener:
 
-gradle build
+Java instalado
+Google Chrome instalado
+ChromeDriver compatible con tu versión de Chrome
+credenciales válidas en .env
+## Ejecución de pruebas
+### Ejecutar todas las pruebas
+gradlew test
 
+En Windows PowerShell:
 
-## ▶️ Ejecución de pruebas
+.\gradlew test
 
-Ejecutar:
+## Casos automatizados actuales
+### LogInPageTest
+Incluye validaciones de:
 
-testSuite.Prueba
+login inválido
+login válido
+###TranformPageTest
+Incluye validación de:
 
-## 🧪 Casos de prueba incluidos
+cambio de contraseña
+restauración de la contraseña original al finalizar el test
+##Patrón de diseño
+El proyecto utiliza Page Object Model.
 
-### 🔐 Login
+### BasePage
+Centraliza utilidades comunes como:
 
-* Login con credenciales válidas ✅
-* Login con credenciales inválidas ❌
+espera de visibilidad
+espera de click
+visibilidad de elementos
+acceso a componentes compartidos como:
+SidebarComponent
+UserMenuComponent
+ChangePasswordModal
+### Pages
+Representan pantallas principales, por ejemplo:
 
-### 👤 Usuario
+LogInPage
+TranformPage
+### Components
+Representan bloques reutilizables dentro de varias páginas, por ejemplo:
 
-* Cambio de contraseña
-* Cierre de sesión
+menú lateral
+menú de usuario
+### Modals
+Representan diálogos o ventanas emergentes reutilizables, por ejemplo:
 
-## 🧱 Patrón de diseño
+cambio de contraseña
+## Convención actual de tests
+Los tests están organizados por módulo funcional:
 
-Se implementa el patrón **Page Object Model (POM)** para:
+testClass.auth
+testClass.tranform
+Cada clase agrupa escenarios de una misma funcionalidad.
 
-* Mejorar mantenibilidad
-* Separar lógica de UI y tests
-* Reutilizar componentes
+## Consideraciones
+Algunos flujos pueden redirigir automáticamente al login después de una acción, como el cambio de contraseña.
+El test de cambio de contraseña está diseñado para ser neutro: cambia la contraseña temporalmente y luego la restaura a su valor original.
+El proyecto actualmente mezcla dos estilos en Pages:
+PageFactory en LogInPage
+By + WebDriverWait en BasePage y TranformPage
+Como mejora futura, conviene unificar todo el proyecto hacia un solo enfoque.
 
-## ⚠️ Consideraciones
-
-* No subir el archivo `.env` al repositorio
-* Asegurarse de tener Google Chrome instalado
-* Compatible con versiones recientes de Selenium
-
-## 📌 Mejoras futuras
-
-* Implementar BaseTest
-* Integrar reportes (ExtentReports o Allure)
-* Manejo de datos dinámicos
-* CI/CD (GitHub Actions)
+## Mejoras futuras sugeridas
+unificar todas las pages al estilo BasePage + By + WebDriverWait
+agregar suites TestNG por módulo y por tipo de ejecución (smoke, regression)
+agregar trazabilidad entre matriz de pruebas y casos automatizados
+externalizar URLs por entorno
+incorporar reportes más completos
+## Notas
+El archivo .env no debe subirse al repositorio.
+Las carpetas generadas por ejecución como build/, .gradle/ y test-output/ deben estar en .gitignore.
