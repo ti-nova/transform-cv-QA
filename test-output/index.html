@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods, 2 failed,  1 skipped,  </span>
+                    <span class="method-stats">3 methods, 2 failed,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title failed">Failed methods</span>
@@ -103,7 +103,7 @@
                     <div class="method-list-content failed suite-Command_line_suite">
                       <span>
                         <img src="failed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Command_line_suite" title="testClass.LogInPageTest" class="method navigator-link" hash-for-method="ingresoUsuarioCorrecto">ingresoUsuarioCorrecto</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Command_line_suite" title="testClass.TranformPageTest" class="method navigator-link" hash-for-method="cambiarContraseña">cambiarContraseña</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
@@ -114,18 +114,18 @@
                     </div> <!-- method-list-content failed suite-Command_line_suite -->
                   </li>
                   <li>
-                    <span class="method-list-title skipped">Skipped methods</span>
-                    <span class="show-or-hide-methods skipped">
-                      <a href="#" panel-name="suite-Command_line_suite" class="hide-methods skipped suite-Command_line_suite"> (hide)</a> <!-- hide-methods skipped suite-Command_line_suite -->
-                      <a href="#" panel-name="suite-Command_line_suite" class="show-methods skipped suite-Command_line_suite"> (show)</a> <!-- show-methods skipped suite-Command_line_suite -->
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Command_line_suite" class="hide-methods passed suite-Command_line_suite"> (hide)</a> <!-- hide-methods passed suite-Command_line_suite -->
+                      <a href="#" panel-name="suite-Command_line_suite" class="show-methods passed suite-Command_line_suite"> (show)</a> <!-- show-methods passed suite-Command_line_suite -->
                     </span>
-                    <div class="method-list-content skipped suite-Command_line_suite">
+                    <div class="method-list-content passed suite-Command_line_suite">
                       <span>
-                        <img src="skipped.png" width="3%"/>
-                        <a href="#" panel-name="suite-Command_line_suite" title="testClass.HomePageTest" class="method navigator-link" hash-for-method="cambiarContraseña">cambiarContraseña</a> <!-- method navigator-link -->
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Command_line_suite" title="testClass.LogInPageTest" class="method navigator-link" hash-for-method="ingresoUsuarioCorrecto">ingresoUsuarioCorrecto</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content skipped suite-Command_line_suite -->
+                    </div> <!-- method-list-content passed suite-Command_line_suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -145,43 +145,18 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="ingresoUsuarioCorrecto">
-                  </a> <!-- ingresoUsuarioCorrecto -->
-                  <span class="method-name">ingresoUsuarioCorrecto</span>
-                  <div class="stack-trace">java.lang.ExceptionInInitializerError
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	... 25 more
-	Suppressed: io.github.cdimascio.dotenv.DotenvException: Could not find .\.env on the file system (working directory: D:\transform-cv-QA)
-		at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:60)
-		... 30 more
-... Removed 22 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
                   <a name="ingresoUsuarioIncorrecto">
                   </a> <!-- ingresoUsuarioIncorrecto -->
                   <span class="method-name">ingresoUsuarioIncorrecto</span>
-                  <div class="stack-trace">org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.178)
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@type=&apos;email&apos;]&quot;}
+  (Session info: chrome=146.0.7680.165)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
 Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [b6eedfe3cf282adb214e44865d7327ec, findElement {value=//div[contains(text(),&apos;error&apos;) or contains(text(),&apos;incorrect&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55081}, goog:processID: 13228, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55081/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: b6eedfe3cf282adb214e44865d7327ec
+Command: [826906ba3af0d3e3844fe97b7ede53b4, findElement {using=xpath, value=//input[@type=&apos;email&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63426}, goog:processID: 25920, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63426/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 826906ba3af0d3e3844fe97b7ede53b4
 	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
@@ -193,22 +168,23 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:222)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:215)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
-	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:52)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.clear(Unknown Source)
+	at page.LogInPage.enterUserEmail(LogInPage.java:24)
+	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:41)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
+	at testSuite.Prueba.main(Prueba.java:14)
 ... Removed 22 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
           </div> <!-- suite-Command_line_suite-class-failed -->
-          <div class="suite-Command_line_suite-class-skipped">
+          <div class="suite-Command_line_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="skipped.png"/>
-              <span class="class-name">testClass.HomePageTest</span>
+              <img src="failed.png"/>
+              <span class="class-name">testClass.TranformPageTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
@@ -216,26 +192,51 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
                   <a name="cambiarContraseña">
                   </a> <!-- cambiarContraseña -->
                   <span class="method-name">cambiarContraseña</span>
-                  <div class="stack-trace">java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
+                  <div class="stack-trace">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;div class=&quot;MuiBox-root css-759u60&quot; aria-label=&quot;Opciones de usuario&quot;&gt;...&lt;/div&gt; is not clickable at point (1346, 70). Other element would receive the click: &lt;div class=&quot;MuiDialog-container MuiDialog-scrollPaper css-8azq84&quot; role=&quot;presentation&quot; tabindex=&quot;-1&quot; style=&quot;opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=146.0.7680.165)
+Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [c8c2728f95d5ae0809bc083b2117ccd2, clickElement {id=f.CF9A79B64D2CD24D6BB221DDF14E2768.d.06837FCB3427CE51CCBA7A85FB05AC81.e.25}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59310}, goog:processID: 20560, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59310/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c8c2728f95d5ae0809bc083b2117ccd2)] -&gt; css selector: div[aria-label=&apos;Opciones de usuario&apos;]]
+Session ID: c8c2728f95d5ae0809bc083b2117ccd2
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.click(Unknown Source)
+	at page.TranformPage.openUserMenu(HomePage.java:49)
+	at testClass.TranformPageTest.cambiarContraseña(HomePageTest.java:48)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	... 20 more
-... Removed 30 stack frames
+	at testSuite.Prueba.main(Prueba.java:14)
+... Removed 24 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Command_line_suite-class-skipped -->
+          </div> <!-- suite-Command_line_suite-class-failed -->
+          <div class="suite-Command_line_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">testClass.LogInPageTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="ingresoUsuarioCorrecto">
+                  </a> <!-- ingresoUsuarioCorrecto -->
+                  <span class="method-name">ingresoUsuarioCorrecto</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Command_line_suite-class-passed -->
         </div> <!-- panel Command_line_suite -->
         <div panel-name="test-xml-Command_line_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -248,7 +249,7 @@ Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.
   &lt;test thread-count=&quot;5&quot; name=&quot;Command line test&quot;&gt;
     &lt;classes&gt;
       &lt;class name=&quot;testClass.LogInPageTest&quot;/&gt;
-      &lt;class name=&quot;testClass.HomePageTest&quot;/&gt;
+      &lt;class name=&quot;testClass.TranformPageTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Command line test --&gt;
 &lt;/suite&gt; &lt;!-- Command line suite --&gt;
@@ -290,22 +291,22 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'ingresoUsuarioIncorrecto')
-data.setCell(0, 2, 'testClass.LogInPageTest')
-data.setCell(0, 3, 5127);
+data.setCell(0, 1, 'cambiarContraseña')
+data.setCell(0, 2, 'testClass.TranformPageTest')
+data.setCell(0, 3, 1781);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'ingresoUsuarioCorrecto')
 data.setCell(1, 2, 'testClass.LogInPageTest')
-data.setCell(1, 3, 6);
+data.setCell(1, 3, 1029);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'cambiarContraseña')
-data.setCell(2, 2, 'testClass.HomePageTest')
-data.setCell(2, 3, 0);
+data.setCell(2, 1, 'ingresoUsuarioIncorrecto')
+data.setCell(2, 2, 'testClass.LogInPageTest')
+data.setCell(2, 3, 13);
 window.suiteTableData['Command_line_suite']= { tableData: data, tableDiv: 'times-div-Command_line_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 5 seconds</span>
+              <span class="suite-total-time">Total running time: 2 seconds</span>
               <div id="times-div-Command_line_suite">
               </div> <!-- times-div-Command_line_suite -->
             </div> <!-- times-div -->
@@ -331,44 +332,48 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">testClass.LogInPageTest</div> <!-- chronological-class-name -->
-              <div class="configuration-method before">
+              <div class="chronological-class-name">testClass.TranformPageTest</div> <!-- chronological-class-name -->
+              <div class="configuration-test before">
                 <span class="method-name">setup</span>
                 <span class="method-start">0 ms</span>
-              </div> <!-- configuration-method before -->
-              <div class="test-method">
-                <img src="failed.png">
-                </img>
-                <span class="method-name">ingresoUsuarioCorrecto</span>
-                <span class="method-start">2711 ms</span>
-              </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown</span>
-                <span class="method-start">2718 ms</span>
-              </div> <!-- configuration-method after -->
-              <div class="configuration-method before">
+              </div> <!-- configuration-test before -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">testClass.LogInPageTest</div> <!-- chronological-class-name -->
+              <div class="configuration-test before">
                 <span class="method-name">setup</span>
-                <span class="method-start">2865 ms</span>
-              </div> <!-- configuration-method before -->
+                <span class="method-start">6115 ms</span>
+              </div> <!-- configuration-test before -->
+              <div class="test-method">
+                <span class="method-name">ingresoUsuarioCorrecto</span>
+                <span class="method-start">8195 ms</span>
+              </div> <!-- test-method -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">ingresoUsuarioIncorrecto</span>
-                <span class="method-start">4955 ms</span>
+                <span class="method-start">9225 ms</span>
               </div> <!-- test-method -->
-              <div class="configuration-method after">
-                <span class="method-name">tearDown</span>
-                <span class="method-start">10083 ms</span>
-              </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
-              <div class="chronological-class-name">testClass.HomePageTest</div> <!-- chronological-class-name -->
-              <div class="configuration-method before">
+              <div class="chronological-class-name">testClass.TranformPageTest</div> <!-- chronological-class-name -->
+              <div class="test-method">
                 <img src="failed.png">
                 </img>
-                <span class="method-name">setup</span>
-                <span class="method-start">10154 ms</span>
-              </div> <!-- configuration-method before -->
+                <span class="method-name">cambiarContraseña</span>
+                <span class="method-start">9240 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-test after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">11021 ms</span>
+              </div> <!-- configuration-test after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">testClass.LogInPageTest</div> <!-- chronological-class-name -->
+              <div class="configuration-test after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">11193 ms</span>
+              </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
       </div> <!-- main-panel-root -->

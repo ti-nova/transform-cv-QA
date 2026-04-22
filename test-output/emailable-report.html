@@ -9,51 +9,44 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Command line suite</th></tr>
-<tr><td><a href="#t0">Command line test</a></td><td class="num">0</td><td class="num attn">1</td><td class="num">0</td><td class="num attn">2</td><td class="num">12.170</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Command line test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num attn">2</td><td class="num">11.352</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Command line suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Command line test &#8212; failed (configuration methods)</th></tr><tr class="failedeven"><td rowspan="1">testClass.HomePageTest</td><td><a href="#m0">setup</a></td><td rowspan="1">1776091108771</td><td rowspan="1">1986</td></tr><tr><th colspan="4">Command line test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="2">testClass.LogInPageTest</td><td><a href="#m1">ingresoUsuarioCorrecto</a></td><td rowspan="1">1776091101328</td><td rowspan="1">6</td></tr><tr class="failedeven"><td><a href="#m2">ingresoUsuarioIncorrecto</a></td><td rowspan="1">1776091103572</td><td rowspan="1">5127</td></tr><tr><th colspan="4">Command line test &#8212; skipped (configuration methods)</th></tr><tr class="skippedeven"><td rowspan="1">testClass.HomePageTest</td><td><a href="#m3">tearDown</a></td><td rowspan="1">1776091110758</td><td rowspan="1">0</td></tr><tr><th colspan="4">Command line test &#8212; skipped</th></tr><tr class="skippedeven"><td rowspan="1">testClass.HomePageTest</td><td><a href="#m4">cambiarContraseña</a></td><td rowspan="1">1776091110758</td><td rowspan="1">0</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Command line suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Command line test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">testClass.TranformPageTest</td><td><a href="#m0">cambiarContraseña</a></td><td rowspan="1">1774529063725</td><td rowspan="1">1781</td></tr><tr class="failedodd"><td rowspan="1">testClass.LogInPageTest</td><td><a href="#m1">ingresoUsuarioIncorrecto</a></td><td rowspan="1">1774529063710</td><td rowspan="1">13</td></tr><tr><th colspan="4">Command line test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">testClass.LogInPageTest</td><td><a href="#m2">ingresoUsuarioCorrecto</a></td><td rowspan="1">1774529062680</td><td rowspan="1">1029</td></tr></tbody>
 </table>
-<h2>Command line test</h2><h3 id="m0">testClass.HomePageTest#setup</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	... 20 more
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">testClass.LogInPageTest#ingresoUsuarioCorrecto</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.ExceptionInInitializerError
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	... 25 more
-	Suppressed: io.github.cdimascio.dotenv.DotenvException: Could not find .\.env on the file system (working directory: D:\transform-cv-QA)
-		at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:60)
-		... 30 more
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">testClass.LogInPageTest#ingresoUsuarioIncorrecto</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.178)
+<h2>Command line test</h2><h3 id="m0">testClass.TranformPageTest#cambiarContraseña</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;div class=&quot;MuiBox-root css-759u60&quot; aria-label=&quot;Opciones de usuario&quot;&gt;...&lt;/div&gt; is not clickable at point (1346, 70). Other element would receive the click: &lt;div class=&quot;MuiDialog-container MuiDialog-scrollPaper css-8azq84&quot; role=&quot;presentation&quot; tabindex=&quot;-1&quot; style=&quot;opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=146.0.7680.165)
 Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [b6eedfe3cf282adb214e44865d7327ec, findElement {value=//div[contains(text(),&apos;error&apos;) or contains(text(),&apos;incorrect&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55081}, goog:processID: 13228, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55081/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: b6eedfe3cf282adb214e44865d7327ec
+Command: [c8c2728f95d5ae0809bc083b2117ccd2, clickElement {id=f.CF9A79B64D2CD24D6BB221DDF14E2768.d.06837FCB3427CE51CCBA7A85FB05AC81.e.25}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59310}, goog:processID: 20560, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59310/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c8c2728f95d5ae0809bc083b2117ccd2)] -&gt; css selector: div[aria-label=&apos;Opciones de usuario&apos;]]
+Session ID: c8c2728f95d5ae0809bc083b2117ccd2
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.click(Unknown Source)
+	at page.TranformPage.openUserMenu(HomePage.java:49)
+	at testClass.TranformPageTest.cambiarContraseña(HomePageTest.java:48)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at testSuite.Prueba.main(Prueba.java:14)
+... Removed 24 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">testClass.LogInPageTest#ingresoUsuarioIncorrecto</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@type=&apos;email&apos;]&quot;}
+  (Session info: chrome=146.0.7680.165)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [826906ba3af0d3e3844fe97b7ede53b4, findElement {using=xpath, value=//input[@type=&apos;email&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63426}, goog:processID: 25920, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63426/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 826906ba3af0d3e3844fe97b7ede53b4
 	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
@@ -65,28 +58,14 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:222)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:215)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
-	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:52)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.clear(Unknown Source)
+	at page.LogInPage.enterUserEmail(LogInPage.java:24)
+	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:41)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
+	at testSuite.Prueba.main(Prueba.java:14)
 ... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m3">testClass.HomePageTest#tearDown</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m4">testClass.HomePageTest#cambiarContraseña</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	... 20 more
-... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">testClass.LogInPageTest#ingresoUsuarioCorrecto</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

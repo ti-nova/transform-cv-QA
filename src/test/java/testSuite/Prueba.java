@@ -1,16 +1,15 @@
 package testSuite;
 
 import org.testng.TestNG;
+import testClass.TranformPageTest;
 
 public class Prueba {
     public static void main(String[] args) {
         TestNG testng = new TestNG();
 
-        testng.setPreserveOrder(true);
-
         testng.setTestClasses(new Class[] {
                 testClass.LogInPageTest.class,
-                testClass.HomePageTest.class
+                TranformPageTest.class
         });
 
         testng.run();

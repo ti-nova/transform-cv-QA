@@ -6,18 +6,17 @@
       <class name="testClass.LogInPageTest">
         <methods>
           <include name="ingresoUsuarioIncorrecto"/>
-          <include name="ingresoUsuarioCorrecto"/>
           <include name="tearDown"/>
           <include name="setup"/>
         </methods>
       </class> <!-- testClass.LogInPageTest -->
-      <class name="testClass.HomePageTest">
+      <class name="testClass.TranformPageTest">
         <methods>
           <include name="cambiarContraseña"/>
           <include name="setup"/>
           <include name="tearDown"/>
         </methods>
-      </class> <!-- testClass.HomePageTest -->
+      </class> <!-- testClass.TranformPageTest -->
     </classes>
   </test> <!-- Command line test(failed) -->
 </suite> <!-- Failed suite [Command line suite] -->

@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Command line test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>0/2/1</td>
+<td>Tests passed/Failed/Skipped:</td><td>1/2/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Apr 13 10:38:18 GMT-04:00 2026</td>
+<td>Started on:</td><td>Thu Mar 26 09:44:14 GMT-03:00 2026</td>
 </tr>
-<tr><td>Total time:</td><td>12 seconds (12170 ms)</td>
+<tr><td>Total time:</td><td>11 seconds (11352 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,93 +67,6 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-failed'>
-<tr><td colspan='4' align='center'><b>FAILED CONFIGURATIONS</b></td></tr>
-<tr><td><b>Test method</b></td>
-<td><b>Attribute(s)</b></td>
-<td width="30%"><b>Exception</b></td>
-<td width="10%"><b>Time (seconds)</b></td>
-<td><b>Instance</b></td>
-</tr>
-<tr>
-<td title='testClass.HomePageTest.setup()'><b>setup</b><br>Test class: testClass.HomePageTest</td>
-<td><div><pre>java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	... 20 more
-... Removed 30 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace769132147", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace769132147'><pre>java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
-	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
-	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
-	at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at org.testng.TestRunner.privateRun(TestRunner.java:739)
-	at org.testng.TestRunner.run(TestRunner.java:614)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-	at org.testng.TestNG.runSuites(TestNG.java:1112)
-	at org.testng.TestNG.run(TestNG.java:1079)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
-	... 20 more
-</pre></div></td>
-<td>1</td>
-<td>testClass.HomePageTest@5bc79255</td></tr>
-</table><p>
-<table width='100%' border='1' class='invocation-skipped'>
-<tr><td colspan='4' align='center'><b>SKIPPED CONFIGURATIONS</b></td></tr>
-<tr><td><b>Test method</b></td>
-<td><b>Attribute(s)</b></td>
-<td width="30%"><b>Exception</b></td>
-<td width="10%"><b>Time (seconds)</b></td>
-<td><b>Instance</b></td>
-</tr>
-<tr>
-<td title='testClass.HomePageTest.tearDown()'><b>tearDown</b><br>Test class: testClass.HomePageTest</td>
-<td></td>
-<td>0</td>
-<td>testClass.HomePageTest@5bc79255</td></tr>
-</table><p>
 <table width='100%' border='1' class='invocation-failed'>
 <tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -163,26 +76,60 @@ Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='testClass.LogInPageTest.ingresoUsuarioCorrecto()'><b>ingresoUsuarioCorrecto</b><br>Test class: testClass.LogInPageTest</td>
-<td><div><pre>java.lang.ExceptionInInitializerError
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
+<td title='testClass.LogInPageTest.ingresoUsuarioIncorrecto()'><b>ingresoUsuarioIncorrecto</b><br>Test class: testClass.LogInPageTest</td>
+<td><div><pre>org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@type=&apos;email&apos;]&quot;}
+  (Session info: chrome=146.0.7680.165)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [826906ba3af0d3e3844fe97b7ede53b4, findElement {using=xpath, value=//input[@type=&apos;email&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63426}, goog:processID: 25920, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63426/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 826906ba3af0d3e3844fe97b7ede53b4
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.clear(Unknown Source)
+	at page.LogInPage.enterUserEmail(LogInPage.java:24)
+	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:41)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	... 25 more
-	Suppressed: io.github.cdimascio.dotenv.DotenvException: Could not find .\.env on the file system (working directory: D:\transform-cv-QA)
-		at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:60)
-		... 30 more
-... Removed 22 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace26757919", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace26757919'><pre>java.lang.ExceptionInInitializerError
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
+	at testSuite.Prueba.main(Prueba.java:14)
+... Removed 22 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1123559518", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1123559518'><pre>org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//input[@type=&apos;email&apos;]&quot;}
+  (Session info: chrome=146.0.7680.165)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
+System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [826906ba3af0d3e3844fe97b7ede53b4, findElement {using=xpath, value=//input[@type=&apos;email&apos;]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63426}, goog:processID: 25920, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63426/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 826906ba3af0d3e3844fe97b7ede53b4
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:223)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:68)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.clear(Unknown Source)
+	at page.LogInPage.enterUserEmail(LogInPage.java:24)
+	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:41)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -206,33 +153,21 @@ Caused by: io.github.cdimascio.dotenv.DotenvException: Could not find /.env on t
 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
 	at org.testng.TestNG.runSuites(TestNG.java:1112)
 	at org.testng.TestNG.run(TestNG.java:1079)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	... 25 more
-	Suppressed: io.github.cdimascio.dotenv.DotenvException: Could not find .\.env on the file system (working directory: D:\transform-cv-QA)
-		at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:60)
-		... 30 more
+	at testSuite.Prueba.main(Prueba.java:14)
 </pre></div></td>
 <td>0</td>
-<td>testClass.LogInPageTest@4e1d422d</td></tr>
+<td>testClass.LogInPageTest@2b9627bc</td></tr>
 <tr>
-<td title='testClass.LogInPageTest.ingresoUsuarioIncorrecto()'><b>ingresoUsuarioIncorrecto</b><br>Test class: testClass.LogInPageTest</td>
-<td><div><pre>org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.178)
+<td title='testClass.TranformPageTest.cambiarContraseña()'><b>cambiarContraseña</b><br>Test class: testClass.TranformPageTest</td>
+<td><div><pre>org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;div class=&quot;MuiBox-root css-759u60&quot; aria-label=&quot;Opciones de usuario&quot;&gt;...&lt;/div&gt; is not clickable at point (1346, 70). Other element would receive the click: &lt;div class=&quot;MuiDialog-container MuiDialog-scrollPaper css-8azq84&quot; role=&quot;presentation&quot; tabindex=&quot;-1&quot; style=&quot;opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=146.0.7680.165)
 Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [b6eedfe3cf282adb214e44865d7327ec, findElement {value=//div[contains(text(),&apos;error&apos;) or contains(text(),&apos;incorrect&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55081}, goog:processID: 13228, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55081/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: b6eedfe3cf282adb214e44865d7327ec
+Command: [c8c2728f95d5ae0809bc083b2117ccd2, clickElement {id=f.CF9A79B64D2CD24D6BB221DDF14E2768.d.06837FCB3427CE51CCBA7A85FB05AC81.e.25}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59310}, goog:processID: 20560, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59310/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c8c2728f95d5ae0809bc083b2117ccd2)] -&gt; css selector: div[aria-label=&apos;Opciones de usuario&apos;]]
+Session ID: c8c2728f95d5ae0809bc083b2117ccd2
 	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
@@ -240,26 +175,24 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:222)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:215)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
-	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:52)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.click(Unknown Source)
+	at page.TranformPage.openUserMenu(HomePage.java:49)
+	at testClass.TranformPageTest.cambiarContraseña(HomePageTest.java:48)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-... Removed 22 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace922807452", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace922807452'><pre>org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as the browser has closed the connection
-from disconnected: not connected to DevTools
-  (Session info: chrome=146.0.7680.178)
+	at testSuite.Prueba.main(Prueba.java:14)
+... Removed 24 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace259630944", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace259630944'><pre>org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element &lt;div class=&quot;MuiBox-root css-759u60&quot; aria-label=&quot;Opciones de usuario&quot;&gt;...&lt;/div&gt; is not clickable at point (1346, 70). Other element would receive the click: &lt;div class=&quot;MuiDialog-container MuiDialog-scrollPaper css-8azq84&quot; role=&quot;presentation&quot; tabindex=&quot;-1&quot; style=&quot;opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);&quot;&gt;...&lt;/div&gt;
+  (Session info: chrome=146.0.7680.165)
 Build info: version: &apos;4.41.0&apos;, revision: &apos;9fc754f&apos;
 System info: os.name: &apos;Windows 11&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;25.0.2&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [b6eedfe3cf282adb214e44865d7327ec, findElement {value=//div[contains(text(),&apos;error&apos;) or contains(text(),&apos;incorrect&apos;)], using=xpath}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.178, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55081}, goog:processID: 13228, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55081/devtoo..., se:cdpVersion: 146.0.7680.178, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: b6eedfe3cf282adb214e44865d7327ec
+Command: [c8c2728f95d5ae0809bc083b2117ccd2, clickElement {id=f.CF9A79B64D2CD24D6BB221DDF14E2768.d.06837FCB3427CE51CCBA7A85FB05AC81.e.25}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 146.0.7680.165, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: C:\Users\harol\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:59310}, goog:processID: 20560, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:59310/devtoo..., se:cdpVersion: 146.0.7680.165, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on windows (c8c2728f95d5ae0809bc083b2117ccd2)] -&gt; css selector: div[aria-label=&apos;Opciones de usuario&apos;]]
+Session ID: c8c2728f95d5ae0809bc083b2117ccd2
 	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:142)
 	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
@@ -267,14 +200,14 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:216)
 	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:174)
 	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:604)
-	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:166)
-	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:427)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:222)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:215)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
-	at testClass.LogInPageTest.ingresoUsuarioIncorrecto(LogInPageTest.java:52)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:223)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:76)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
+	at jdk.proxy2/jdk.proxy2.$Proxy9.click(Unknown Source)
+	at page.TranformPage.openUserMenu(HomePage.java:49)
+	at testClass.TranformPageTest.cambiarContraseña(HomePageTest.java:48)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
@@ -298,13 +231,13 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
 	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
 	at org.testng.TestNG.runSuites(TestNG.java:1112)
 	at org.testng.TestNG.run(TestNG.java:1079)
-	at testSuite.Prueba.main(Prueba.java:16)
+	at testSuite.Prueba.main(Prueba.java:14)
 </pre></div></td>
-<td>5</td>
-<td>testClass.LogInPageTest@4e1d422d</td></tr>
+<td>1</td>
+<td>testClass.TranformPageTest@887af79</td></tr>
 </table><p>
-<table width='100%' border='1' class='invocation-skipped'>
-<tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -312,69 +245,10 @@ Session ID: b6eedfe3cf282adb214e44865d7327ec
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='testClass.HomePageTest.cambiarContraseña()'><b>cambiarContraseña</b><br>Test class: testClass.HomePageTest</td>
-<td><div><pre>java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	... 20 more
-... Removed 30 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace1547883191", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1547883191'><pre>java.lang.NoClassDefFoundError: Could not initialize class config.Config
-	at testClass.HomePageTest.setup(HomePageTest.java:41)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethodConsideringTimeout(MethodInvocationHelper.java:71)
-	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurationMethod(ConfigInvoker.java:400)
-	at org.testng.internal.invokers.ConfigInvoker.invokeConfigurations(ConfigInvoker.java:333)
-	at org.testng.internal.invokers.TestInvoker.runConfigMethods(TestInvoker.java:833)
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:600)
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
-	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
-	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:992)
-	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
-	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
-	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-	at org.testng.TestRunner.privateRun(TestRunner.java:739)
-	at org.testng.TestRunner.run(TestRunner.java:614)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:312)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
-	at org.testng.TestNG.runSuites(TestNG.java:1112)
-	at org.testng.TestNG.run(TestNG.java:1079)
-	at testSuite.Prueba.main(Prueba.java:16)
-Caused by: java.lang.ExceptionInInitializerError: Exception io.github.cdimascio.dotenv.DotenvException: Could not find /.env on the classpath [in thread &quot;main&quot;]
-	at io.github.cdimascio.dotenv.internal.ClasspathHelper.loadFileFromClasspath(ClasspathHelper.java:25)
-	at io.github.cdimascio.dotenv.internal.DotenvReader.read(DotenvReader.java:55)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.lines(DotenvParser.java:87)
-	at io.github.cdimascio.dotenv.internal.DotenvParser.parse(DotenvParser.java:60)
-	at io.github.cdimascio.dotenv.DotenvBuilder.load(DotenvBuilder.java:76)
-	at io.github.cdimascio.dotenv.Dotenv.load(Dotenv.java:38)
-	at config.Config.&lt;clinit&gt;(Config.java:6)
-	at testClass.LogInPageTest.ingresoUsuarioCorrecto(LogInPageTest.java:66)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
-	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
-	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:686)
-	... 20 more
-</pre></div></td>
-<td>0</td>
-<td>testClass.HomePageTest@5bc79255</td></tr>
+<td title='testClass.LogInPageTest.ingresoUsuarioCorrecto()'><b>ingresoUsuarioCorrecto</b><br>Test class: testClass.LogInPageTest</td>
+<td></td>
+<td>1</td>
+<td>testClass.LogInPageTest@2b9627bc</td></tr>
 </table><p>
 </body>
 </html>
