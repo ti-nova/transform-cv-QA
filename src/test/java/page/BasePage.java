@@ -29,12 +29,17 @@ public abstract class BasePage {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    protected WebElement waitPresent(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
     protected List<WebElement> waitVisibleAll(By locator) {
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
     protected boolean isVisible(By locator) {
-        return !driver.findElements(locator).isEmpty() && driver.findElement(locator).isDisplayed();
+        List<WebElement> elements = driver.findElements(locator);
+        return !elements.isEmpty() && elements.get(0).isDisplayed();
     }
 
     public SidebarComponent sidebar() {
