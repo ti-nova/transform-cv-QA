@@ -24,9 +24,9 @@ public class TranformCvTest {
 
     private final String urlLogin    = "https://tranform-cv.vercel.app/login";
     private final String urlTranform = "https://tranform-cv.vercel.app/transform";
-
     private final Path testDataPath = Path.of(
-            "D:", "transform-cv-QA", "src", "test", "resources", "testdata", "transform"
+            System.getProperty("user.dir"),
+            "src", "test", "resources", "testdata", "transform"
     );
 
     @BeforeMethod
