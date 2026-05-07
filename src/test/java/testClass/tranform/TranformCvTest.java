@@ -22,7 +22,7 @@ public class TranformCvTest {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private final String urlLogin = "https://tranform-cv.vercel.app/login";
+    private final String urlLogin    = "https://tranform-cv.vercel.app/login";
     private final String urlTranform = "https://tranform-cv.vercel.app/transform";
 
     private final Path testDataPath = Path.of(
@@ -34,13 +34,12 @@ public class TranformCvTest {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
         }
-
         if (Config.getUserPassword() == null || Config.getUserPassword().isBlank()) {
             throw new IllegalStateException("USER_PASSWORD no está configurado.");
         }
 
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait   = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         driver.manage().window().maximize();
         driver.get(urlLogin);
@@ -68,7 +67,7 @@ public class TranformCvTest {
     @Test
     public void cpTr001_cargaPdfValido_registraCargaEnUi() {
         TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.pdf");
+        String filePath       = getFilePath("cv_valido.pdf");
         String initialCounter = tranformPage.getSelectedFilesText();
 
         tranformPage.uploadCv(filePath);
@@ -77,12 +76,18 @@ public class TranformCvTest {
                 tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
                 "La UI no registró la carga del PDF. El contador siguió igual: " + initialCounter
         );
+
+        // Verifica que solo se registró 1 archivo — detecta doble upload
+        Assert.assertEquals(
+                tranformPage.getUploadedFileCount(), 1,
+                "Se esperaba 1 archivo en la lista pero se encontraron: " + tranformPage.getUploadedFileCount()
+        );
     }
 
     @Test
     public void cpTr002_cargaDocxValido_registraCargaEnUi() {
         TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.docx");
+        String filePath       = getFilePath("cv_valido.docx");
         String initialCounter = tranformPage.getSelectedFilesText();
 
         tranformPage.uploadCv(filePath);
@@ -90,6 +95,12 @@ public class TranformCvTest {
         Assert.assertTrue(
                 tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
                 "La UI no registró la carga del DOCX. El contador siguió igual: " + initialCounter
+        );
+
+        // Verifica que solo se registró 1 archivo — detecta doble upload
+        Assert.assertEquals(
+                tranformPage.getUploadedFileCount(), 1,
+                "Se esperaba 1 archivo en la lista pero se encontraron: " + tranformPage.getUploadedFileCount()
         );
     }
 
@@ -132,7 +143,7 @@ public class TranformCvTest {
     @Test
     public void cpTr006_archivoInvalido_mantieneEstadoSinCargaValida() {
         TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("archivo_invalido.txt");
+        String filePath       = getFilePath("archivo_invalido.txt");
         String initialCounter = tranformPage.getSelectedFilesText();
 
         tranformPage.uploadCv(filePath);
@@ -147,51 +158,88 @@ public class TranformCvTest {
     }
 
     @Test
-    public void cpTr007_transformarPdfValido_requiereCargaRegistradaAntesDeProcesar() {
+    public void cpTr007_transformarPdfValido_completaTransformacionConExito() {
         TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.pdf");
+        String filePath       = getFilePath("cv_valido.pdf");
         String initialCounter = tranformPage.getSelectedFilesText();
 
         tranformPage.uploadCv(filePath);
 
         Assert.assertTrue(
                 tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
-                "La UI no registró la carga del PDF, por lo que no tiene sentido continuar con la transformación."
+                "La UI no registró la carga del PDF."
+        );
+
+        Assert.assertEquals(
+                tranformPage.getUploadedFileCount(), 1,
+                "Se detectó doble upload del PDF: " + tranformPage.getUploadedFileCount() + " archivos en lista."
         );
 
         tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
         tranformPage.clickTransformButton();
 
-        Assert.assertFalse(
-                tranformPage.hasNoFileSelectedAlert(),
-                "Después de cargar un PDF válido, no debería seguir apareciendo la alerta de 'selecciona al menos un archivo'."
+        // Espera hasta 60s a que aparezcan la alerta de éxito y el enlace de descarga
+        Assert.assertTrue(
+                tranformPage.waitUntilTransformationCompletes(),
+                "La transformación del PDF no completó en 60s: no apareció la alerta de éxito ni el enlace de descarga."
+        );
+
+        // Verifica que el mensaje dice "procesado(s) con éxito"
+        Assert.assertTrue(
+                tranformPage.getSuccessAlertText().contains("procesado"),
+                "El texto de la alerta de éxito no es el esperado: " + tranformPage.getSuccessAlertText()
+        );
+
+        // Verifica que el enlace de descarga apunta al servidor de producción
+        Assert.assertTrue(
+                tranformPage.getDownloadLinkUrl().contains("cv_valido"),
+                "El enlace de descarga no contiene el nombre del archivo original: " + tranformPage.getDownloadLinkUrl()
         );
     }
 
     @Test
-    public void cpTr008_transformarDocxValido_requiereCargaRegistradaAntesDeProcesar() {
+    public void cpTr008_transformarDocxValido_completaTransformacionConExito() {
         TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.docx");
+        String filePath       = getFilePath("cv_valido.docx");
         String initialCounter = tranformPage.getSelectedFilesText();
 
         tranformPage.uploadCv(filePath);
 
         Assert.assertTrue(
                 tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
-                "La UI no registró la carga del DOCX, por lo que no tiene sentido continuar con la transformación."
+                "La UI no registró la carga del DOCX."
+        );
+
+        Assert.assertEquals(
+                tranformPage.getUploadedFileCount(), 1,
+                "Se detectó doble upload del DOCX: " + tranformPage.getUploadedFileCount() + " archivos en lista."
         );
 
         tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
         tranformPage.clickTransformButton();
 
-        Assert.assertFalse(
-                tranformPage.hasNoFileSelectedAlert(),
-                "Después de cargar un DOCX válido, no debería seguir apareciendo la alerta de 'selecciona al menos un archivo'."
+        // Espera hasta 60s a que aparezcan la alerta de éxito y el enlace de descarga
+        Assert.assertTrue(
+                tranformPage.waitUntilTransformationCompletes(),
+                "La transformación del DOCX no completó en 60s: no apareció la alerta de éxito ni el enlace de descarga."
+        );
+
+        // Verifica que el mensaje dice "procesado(s) con éxito"
+        Assert.assertTrue(
+                tranformPage.getSuccessAlertText().contains("procesado"),
+                "El texto de la alerta de éxito no es el esperado: " + tranformPage.getSuccessAlertText()
+        );
+
+        // Verifica que el enlace de descarga apunta al servidor de producción
+        Assert.assertTrue(
+                tranformPage.getDownloadLinkUrl().contains("cv_valido"),
+                "El enlace de descarga no contiene el nombre del archivo original: " + tranformPage.getDownloadLinkUrl()
         );
     }
 
     private void login(String email, String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='email']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='password']")));
 
         LogInPage loginPage = new LogInPage(driver);
         loginPage.enterUserEmail(email);

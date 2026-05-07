@@ -1,11 +1,16 @@
 package page;
 
+import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LogInPage {
+
+    private final WebDriverWait wait;
 
     @FindBy(xpath = "//input[@type='email']")
     private WebElement inputUser;
@@ -18,6 +23,7 @@ public class LogInPage {
 
     public LogInPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void enterUserEmail(String user) {
@@ -31,6 +37,8 @@ public class LogInPage {
     }
 
     public void clickIngresar() {
-        botonIngresar.click();
+        // Espera a que el botón esté clickeable antes de hacer submit
+        // React puede deshabilitarlo brevemente mientras valida el formulario
+        wait.until(ExpectedConditions.elementToBeClickable(botonIngresar)).click();
     }
 }
