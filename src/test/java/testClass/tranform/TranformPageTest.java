@@ -63,6 +63,7 @@ public class TranformPageTest {
     }
 
     @Test
+    @DisplayName("Should allow user to change password, login with new password, and revert to original password")
     public void cambiarContrasena() {
         TranformPage tranformPage = new TranformPage(driver);
 

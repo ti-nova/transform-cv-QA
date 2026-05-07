@@ -64,132 +64,138 @@ public class TranformCvTest {
             driver.quit();
         }
     }
+@Test
+@DisplayName("Carga un PDF válido y verifica que la UI registre la carga")
+public void cpTr001_cargaPdfValido_registraCargaEnUi() {
+    TranformPage tranformPage = new TranformPage(driver);
+    String filePath = getFilePath("cv_valido.pdf");
+    String initialCounter = tranformPage.getSelectedFilesText();
 
-    @Test
-    public void cpTr001_cargaPdfValido_registraCargaEnUi() {
-        TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.pdf");
-        String initialCounter = tranformPage.getSelectedFilesText();
+    tranformPage.uploadCv(filePath);
 
-        tranformPage.uploadCv(filePath);
+    Assert.assertTrue(
+            tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
+            "La UI no registró la carga del PDF. El contador siguió igual: " + initialCounter
+    );
+}
 
-        Assert.assertTrue(
-                tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
-                "La UI no registró la carga del PDF. El contador siguió igual: " + initialCounter
-        );
-    }
+@Test
+@DisplayName("Carga un DOCX válido y verifica que la UI registre la carga")
+public void cpTr002_cargaDocxValido_registraCargaEnUi() {
+    TranformPage tranformPage = new TranformPage(driver);
+    String filePath = getFilePath("cv_valido.docx");
+    String initialCounter = tranformPage.getSelectedFilesText();
 
-    @Test
-    public void cpTr002_cargaDocxValido_registraCargaEnUi() {
-        TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.docx");
-        String initialCounter = tranformPage.getSelectedFilesText();
+    tranformPage.uploadCv(filePath);
 
-        tranformPage.uploadCv(filePath);
+    Assert.assertTrue(
+            tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
+            "La UI no registró la carga del DOCX. El contador siguió igual: " + initialCounter
+    );
+}
 
-        Assert.assertTrue(
-                tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
-                "La UI no registró la carga del DOCX. El contador siguió igual: " + initialCounter
-        );
-    }
+@Test
+@DisplayName("Intenta transformar sin archivo y verifica que se muestre una alerta")
+public void cpTr003_transformarSinArchivo_muestraAlerta() {
+    TranformPage tranformPage = new TranformPage(driver);
 
-    @Test
-    public void cpTr003_transformarSinArchivo_muestraAlerta() {
-        TranformPage tranformPage = new TranformPage(driver);
+    tranformPage.clickTransformButton();
 
-        tranformPage.clickTransformButton();
+    Assert.assertTrue(
+            tranformPage.hasNoFileSelectedAlert(),
+            "Debería mostrarse la alerta de que falta seleccionar un archivo."
+    );
+}
 
-        Assert.assertTrue(
-                tranformPage.hasNoFileSelectedAlert(),
-                "Debería mostrarse la alerta de que falta seleccionar un archivo."
-        );
-    }
+@Test
+@DisplayName("Ingresa requerimientos y verifica que el textarea se actualiza")
+public void cpTr004_ingresoRequerimientos_actualizaTextarea() {
+    TranformPage tranformPage = new TranformPage(driver);
+    String requirements = "QA Analyst con experiencia en Selenium, TestNG y pruebas funcionales.";
 
-    @Test
-    public void cpTr004_ingresoRequerimientos_actualizaTextarea() {
-        TranformPage tranformPage = new TranformPage(driver);
-        String requirements = "QA Analyst con experiencia en Selenium, TestNG y pruebas funcionales.";
+    tranformPage.enterRequirements(requirements);
 
-        tranformPage.enterRequirements(requirements);
+    Assert.assertEquals(tranformPage.getRequirementsText(), requirements);
+}
 
-        Assert.assertEquals(tranformPage.getRequirementsText(), requirements);
-    }
+@Test
+@DisplayName("Al hacer click en el checkbox de presentación, cambia su estado")
+public void cpTr005_checkboxPresentacion_cambiaEstado() {
+    TranformPage tranformPage = new TranformPage(driver);
+    boolean initialState = tranformPage.isIncludePresentationChecked();
 
-    @Test
-    public void cpTr005_checkboxPresentacion_cambiaEstado() {
-        TranformPage tranformPage = new TranformPage(driver);
-        boolean initialState = tranformPage.isIncludePresentationChecked();
+    tranformPage.clickIncludePresentationCheckbox();
 
-        tranformPage.clickIncludePresentationCheckbox();
+    Assert.assertNotEquals(
+            tranformPage.isIncludePresentationChecked(),
+            initialState,
+            "El checkbox debería cambiar de estado al hacer click."
+    );
+}
 
-        Assert.assertNotEquals(
-                tranformPage.isIncludePresentationChecked(),
-                initialState,
-                "El checkbox debería cambiar de estado al hacer click."
-        );
-    }
+@Test
+@DisplayName("Carga un archivo inválido y verifica que no se registre como válido")
+public void cpTr006_archivoInvalido_mantieneEstadoSinCargaValida() {
+    TranformPage tranformPage = new TranformPage(driver);
+    String filePath = getFilePath("archivo_invalido.txt");
+    String initialCounter = tranformPage.getSelectedFilesText();
 
-    @Test
-    public void cpTr006_archivoInvalido_mantieneEstadoSinCargaValida() {
-        TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("archivo_invalido.txt");
-        String initialCounter = tranformPage.getSelectedFilesText();
+    tranformPage.uploadCv(filePath);
+    tranformPage.clickTransformButton();
 
-        tranformPage.uploadCv(filePath);
-        tranformPage.clickTransformButton();
+    boolean counterChanged = tranformPage.waitUntilSelectedFilesTextChanges(initialCounter);
 
-        boolean counterChanged = tranformPage.waitUntilSelectedFilesTextChanges(initialCounter);
+    Assert.assertTrue(
+            !counterChanged || tranformPage.hasNoFileSelectedAlert(),
+            "Un archivo inválido no debería comportarse como una carga válida transformable."
+    );
+}
 
-        Assert.assertTrue(
-                !counterChanged || tranformPage.hasNoFileSelectedAlert(),
-                "Un archivo inválido no debería comportarse como una carga válida transformable."
-        );
-    }
+@Test
+@DisplayName("Transforma un PDF válido requiere que la carga esté registrada antes de procesar")
+public void cpTr007_transformarPdfValido_requiereCargaRegistradaAntesDeProcesar() {
+    TranformPage tranformPage = new TranformPage(driver);
+    String filePath = getFilePath("cv_valido.pdf");
+    String initialCounter = tranformPage.getSelectedFilesText();
 
-    @Test
-    public void cpTr007_transformarPdfValido_requiereCargaRegistradaAntesDeProcesar() {
-        TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.pdf");
-        String initialCounter = tranformPage.getSelectedFilesText();
+    tranformPage.uploadCv(filePath);
 
-        tranformPage.uploadCv(filePath);
+    Assert.assertTrue(
+            tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
+            "La UI no registró la carga del PDF, por lo que no tiene sentido continuar con la transformación."
+    );
 
-        Assert.assertTrue(
-                tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
-                "La UI no registró la carga del PDF, por lo que no tiene sentido continuar con la transformación."
-        );
+    tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
+    tranformPage.clickTransformButton();
 
-        tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
-        tranformPage.clickTransformButton();
+    Assert.assertFalse(
+            tranformPage.hasNoFileSelectedAlert(),
+            "Después de cargar un PDF válido, no debería seguir apareciendo la alerta de 'selecciona al menos un archivo'."
+    );
+}
 
-        Assert.assertFalse(
-                tranformPage.hasNoFileSelectedAlert(),
-                "Después de cargar un PDF válido, no debería seguir apareciendo la alerta de 'selecciona al menos un archivo'."
-        );
-    }
+@Test
+@DisplayName("Transforma un DOCX válido requiere que la carga esté registrada antes de procesar")
+public void cpTr008_transformarDocxValido_requiereCargaRegistradaAntesDeProcesar() {
+    TranformPage tranformPage = new TranformPage(driver);
+    String filePath = getFilePath("cv_valido.docx");
+    String initialCounter = tranformPage.getSelectedFilesText();
 
-    @Test
-    public void cpTr008_transformarDocxValido_requiereCargaRegistradaAntesDeProcesar() {
-        TranformPage tranformPage = new TranformPage(driver);
-        String filePath = getFilePath("cv_valido.docx");
-        String initialCounter = tranformPage.getSelectedFilesText();
+    tranformPage.uploadCv(filePath);
 
-        tranformPage.uploadCv(filePath);
+    Assert.assertTrue(
+            tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
+            "La UI no registró la carga del DOCX, por lo que no tiene sentido continuar con la transformación."
+    );
 
-        Assert.assertTrue(
-                tranformPage.waitUntilSelectedFilesTextChanges(initialCounter),
-                "La UI no registró la carga del DOCX, por lo que no tiene sentido continuar con la transformación."
-        );
+    tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
+    tranformPage.clickTransformButton();
 
-        tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
-        tranformPage.clickTransformButton();
-
-        Assert.assertFalse(
-                tranformPage.hasNoFileSelectedAlert(),
-                "Después de cargar un DOCX válido, no debería seguir apareciendo la alerta de 'selecciona al menos un archivo'."
-        );
-    }
-
+    Assert.assertFalse(
+            tranformPage.hasNoFileSelectedAlert(),
+            "Después de cargar un DOCX válido, no debería seguir apareciendo la alerta de 'selecciona al menos un archivo'."
+    );
+}
     private void login(String email, String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='email']")));
 

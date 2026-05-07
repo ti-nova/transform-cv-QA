@@ -39,6 +39,7 @@ public class LogInPageTest {
     }
 
     @Test
+    @DisplayName("Intento de ingreso con usuario y clave incorrectos debe permanecer en /login")
     public void ingresoUsuarioIncorrecto() {
         LogInPage loginPage = new LogInPage(driver);
         loginPage.enterUserEmail("usuario_invalido@test.com");
@@ -50,6 +51,7 @@ public class LogInPageTest {
     }
 
     @Test
+    @DisplayName("Ingreso exitoso con usuario y clave correctos debe redireccionar a /dashboard o /transform")
     public void ingresoUsuarioCorrecto() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
