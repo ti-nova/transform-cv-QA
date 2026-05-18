@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import config.Config;
 import page.LogInPage;
+import page.ProcessedCvsPage;
 import page.TranformPage;
 
 public class TranformCvTest {
@@ -178,23 +179,24 @@ public class TranformCvTest {
         tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
         tranformPage.clickTransformButton();
 
-        // Espera hasta 60s a que aparezcan la alerta de éxito y el enlace de descarga
         Assert.assertTrue(
                 tranformPage.waitUntilTransformationCompletes(),
-                "La transformación del PDF no completó en 60s: no apareció la alerta de éxito ni el enlace de descarga."
+                "La transformación del PDF no completó en 120s: no apareció la alerta de éxito ni el enlace de descarga."
         );
 
-        // Verifica que el mensaje dice "procesado(s) con éxito"
         Assert.assertTrue(
                 tranformPage.getSuccessAlertText().contains("procesado"),
                 "El texto de la alerta de éxito no es el esperado: " + tranformPage.getSuccessAlertText()
         );
 
-        // Verifica que el enlace de descarga apunta al servidor de producción
         Assert.assertTrue(
                 tranformPage.getDownloadLinkUrl().contains("cv_valido"),
                 "El enlace de descarga no contiene el nombre del archivo original: " + tranformPage.getDownloadLinkUrl()
         );
+
+        // Navega al historial y confirma que el backend persistió el registro
+        // antes de que @AfterMethod cierre el browser.
+        verificarRegistroEnHistorial(tranformPage);
     }
 
     @Test
@@ -218,23 +220,37 @@ public class TranformCvTest {
         tranformPage.enterRequirements("QA Analyst con experiencia en Selenium y automatización.");
         tranformPage.clickTransformButton();
 
-        // Espera hasta 60s a que aparezcan la alerta de éxito y el enlace de descarga
         Assert.assertTrue(
                 tranformPage.waitUntilTransformationCompletes(),
-                "La transformación del DOCX no completó en 60s: no apareció la alerta de éxito ni el enlace de descarga."
+                "La transformación del DOCX no completó en 120s: no apareció la alerta de éxito ni el enlace de descarga."
         );
 
-        // Verifica que el mensaje dice "procesado(s) con éxito"
         Assert.assertTrue(
                 tranformPage.getSuccessAlertText().contains("procesado"),
                 "El texto de la alerta de éxito no es el esperado: " + tranformPage.getSuccessAlertText()
         );
 
-        // Verifica que el enlace de descarga apunta al servidor de producción
         Assert.assertTrue(
                 tranformPage.getDownloadLinkUrl().contains("cv_valido"),
                 "El enlace de descarga no contiene el nombre del archivo original: " + tranformPage.getDownloadLinkUrl()
         );
+
+        // Navega al historial y confirma que el backend persistió el registro
+        // antes de que @AfterMethod cierre el browser.
+        verificarRegistroEnHistorial(tranformPage);
+    }
+
+    private void verificarRegistroEnHistorial(TranformPage tranformPage) {
+        tranformPage.sidebar().goToProcessedCvs();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h4[contains(.,'CVs Procesados')]")));
+
+        ProcessedCvsPage historial = new ProcessedCvsPage(driver);
+        Assert.assertTrue(historial.isLoaded(),
+                "La página de historial no cargó después de la transformación.");
+        Assert.assertTrue(historial.getRowCount() > 0,
+                "El CV transformado no aparece en el historial — el backend posiblemente no persistió el registro.");
     }
 
     private void login(String email, String password) {

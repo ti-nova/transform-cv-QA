@@ -1,4 +1,4 @@
-package testClass.dashboard;
+package testClass.auth;
 
 import java.time.Duration;
 import config.Config;
@@ -8,22 +8,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import page.DashboardPage;
 import page.LogInPage;
 import page.TranformPage;
 
-public class DashboardTest {
+public class CierreSessionTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
 
     private final String urlLogin = "https://tranform-cv.vercel.app/login";
-    private final String urlDashboard = "https://tranform-cv.vercel.app/dashboard";
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
@@ -48,14 +46,9 @@ public class DashboardTest {
                 ExpectedConditions.urlContains("/dashboard"),
                 ExpectedConditions.urlContains("/transform")
         ));
-
-        if (!driver.getCurrentUrl().contains("/dashboard")) {
-            new TranformPage(driver).sidebar().goToDashboard();
-            wait.until(ExpectedConditions.urlContains("/dashboard"));
-        }
     }
 
-    @AfterTest
+    @AfterMethod
     public void tearDown() {
         if (driver != null) {
             driver.quit();
@@ -63,30 +56,22 @@ public class DashboardTest {
     }
 
     @Test
-    public void dashboardCargaTituloConsumoDeCV() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isLoaded(),
-                "El título 'Consumo de CVs Transformados' debe estar visible en el dashboard.");
+    public void cierraSesionDesdeMenuUsuarioYRedirigAlLogin() {
+        new TranformPage(driver).userMenu().logout();
+
+        wait.until(ExpectedConditions.urlContains("/login"));
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"),
+                "Después de cerrar sesión debe redirigir al login.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
-    public void dashboardMuestraMetricaCvsUsados() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isCvsUsedVisible(),
-                "La etiqueta 'CVs usados' debe ser visible.");
-    }
+    @Test
+    public void cierraSesionDesdeSidebarYRedirigAlLogin() {
+        new TranformPage(driver).sidebar().logoutFromSidebar();
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
-    public void dashboardMuestraMetricaCvsRestantes() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isCvsRemainingVisible(),
-                "La etiqueta 'CVs restantes' debe ser visible.");
-    }
+        wait.until(ExpectedConditions.urlContains("/login"));
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
-    public void dashboardMuestraGraficoUtilizacionPorUsuario() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isUsageByUserChartVisible(),
-                "El gráfico 'UTILIZACIÓN POR USUARIO' debe ser visible.");
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"),
+                "El cierre de sesión desde el sidebar debe redirigir al login.");
     }
 }

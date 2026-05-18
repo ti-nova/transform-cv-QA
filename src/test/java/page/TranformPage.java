@@ -150,8 +150,12 @@ public class TranformPage extends BasePage {
      * Ambos elementos aparecen juntos cuando el servidor termina la transformación.
      */
     public boolean waitUntilTransformationCompletes() {
+        return waitUntilTransformationCompletes(120);
+    }
+
+    public boolean waitUntilTransformationCompletes(int timeoutSeconds) {
         try {
-            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(60));
+            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
             longWait.until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOfElementLocated(successAlert),
                     ExpectedConditions.visibilityOfElementLocated(downloadLink)

@@ -1,4 +1,4 @@
-package testClass.dashboard;
+package testClass.settings;
 
 import java.time.Duration;
 import config.Config;
@@ -11,17 +11,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import page.DashboardPage;
 import page.LogInPage;
+import page.TeamSettingsPage;
 import page.TranformPage;
 
-public class DashboardTest {
+public class TeamSettingsTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
 
     private final String urlLogin = "https://tranform-cv.vercel.app/login";
-    private final String urlDashboard = "https://tranform-cv.vercel.app/dashboard";
 
     @BeforeTest
     public void setup() {
@@ -49,10 +48,12 @@ public class DashboardTest {
                 ExpectedConditions.urlContains("/transform")
         ));
 
-        if (!driver.getCurrentUrl().contains("/dashboard")) {
-            new TranformPage(driver).sidebar().goToDashboard();
-            wait.until(ExpectedConditions.urlContains("/dashboard"));
-        }
+        TranformPage page = new TranformPage(driver);
+        page.sidebar().openSettings();
+        page.sidebar().goToMyTeam();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h4[normalize-space()='Mi Equipo']")));
     }
 
     @AfterTest
@@ -63,30 +64,35 @@ public class DashboardTest {
     }
 
     @Test
-    public void dashboardCargaTituloConsumoDeCV() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isLoaded(),
-                "El título 'Consumo de CVs Transformados' debe estar visible en el dashboard.");
+    public void paginaEquipoCargaCorrectamente() {
+        TeamSettingsPage page = new TeamSettingsPage(driver);
+        Assert.assertTrue(page.isLoaded(),
+                "La página 'Mi Equipo' debe cargar con título y tabla visibles.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
-    public void dashboardMuestraMetricaCvsUsados() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isCvsUsedVisible(),
-                "La etiqueta 'CVs usados' debe ser visible.");
+    @Test(dependsOnMethods = "paginaEquipoCargaCorrectamente")
+    public void tablaMuestraMiembrosDelEquipo() {
+        TeamSettingsPage page = new TeamSettingsPage(driver);
+        int count = page.getMemberCount();
+        Assert.assertTrue(count > 0,
+                "La tabla de equipo debe tener al menos un miembro.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
-    public void dashboardMuestraMetricaCvsRestantes() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isCvsRemainingVisible(),
-                "La etiqueta 'CVs restantes' debe ser visible.");
+    @Test(dependsOnMethods = "paginaEquipoCargaCorrectamente")
+    public void botonInvitarMiembroEstaVisible() {
+        TeamSettingsPage page = new TeamSettingsPage(driver);
+        Assert.assertTrue(
+                wait.until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[contains(.,'Invitar a un Miembro')]"))) != null,
+                "El botón 'Invitar a un Miembro' debe estar visible y clickeable.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
-    public void dashboardMuestraGraficoUtilizacionPorUsuario() {
-        DashboardPage dashboard = new DashboardPage(driver);
-        Assert.assertTrue(dashboard.isUsageByUserChartVisible(),
-                "El gráfico 'UTILIZACIÓN POR USUARIO' debe ser visible.");
+    @Test(dependsOnMethods = "tablaMuestraMiembrosDelEquipo")
+    public void primerMiembroTieneEmailVisible() {
+        TeamSettingsPage page = new TeamSettingsPage(driver);
+        String email = page.getMemberEmailByRow(1);
+        Assert.assertNotNull(email, "El email del primer miembro no debe ser nulo.");
+        Assert.assertTrue(email.contains("@"),
+                "El email del primer miembro debe tener formato de correo válido.");
     }
 }
