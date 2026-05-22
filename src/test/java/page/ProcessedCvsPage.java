@@ -3,6 +3,7 @@ package page;
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -44,10 +45,20 @@ public class ProcessedCvsPage extends BasePage {
         WebElement input = waitVisible(searchInput);
         input.clear();
         input.sendKeys(name);
+        input.sendKeys(Keys.ENTER);
     }
 
     public int getRowCount() {
         return waitVisibleAll(tableRows).size();
+    }
+
+    /**
+     * Cuenta las filas de la tabla SIN esperar. Devuelve 0 de forma segura si
+     * la tabla quedó vacía (por ejemplo tras una búsqueda sin resultados),
+     * a diferencia de getRowCount() que lanzaría excepción.
+     */
+    public int countRowsNow() {
+        return driver.findElements(tableRows).size();
     }
 
     public boolean isPaginationVisible() {

@@ -8,8 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import page.LogInPage;
 import page.ProcessedCvsPage;
@@ -22,7 +22,7 @@ public class ProcessedCvsTest {
 
     private final String urlLogin = "https://tranform-cv.vercel.app/login";
 
-    @BeforeTest
+    @BeforeClass
     public void setup() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
@@ -52,9 +52,11 @@ public class ProcessedCvsTest {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//h4[contains(.,'CVs Procesados')]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("table")));
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
@@ -90,22 +92,24 @@ public class ProcessedCvsTest {
     /**
      * Matriz de Pruebas -> Sin fila directa en el CSV.
      * Cobertura adicional sobre la User Story "Gestión de CV transformados".
-     * Detalle: la búsqueda por nombre filtra los resultados de la tabla.
+     * Detalle: al buscar por un nombre existente, ese candidato sigue visible
+     * en la tabla (la búsqueda aplica el filtro sin romper el listado).
      */
     @Test(description = "Sin fila Matriz | Busqueda por nombre filtra resultados | US: Gestion de CV transformados",
-            dependsOnMethods = "paginaCvsProcesadosCargaCorrectamente")
+            dependsOnMethods = "primerRegistroTieneNombreVisible")
     public void busquedaPorNombreFiltraResultados() {
         ProcessedCvsPage page = new ProcessedCvsPage(driver);
-        int rowsBefore = page.getRowCount();
+        String nombreExistente = page.getCandidateNameByRow(1);
 
         page.clickSearchByName();
-        page.searchByName("z");
+        page.searchByName(nombreExistente);
 
-        wait.until(driver1 -> page.getRowCount() != rowsBefore
-                || page.getRowCount() == 0);
+        // Tras buscar por un nombre que existe, la tabla debe seguir mostrando
+        // al menos un resultado, con ese candidato en la primera fila.
+        wait.until(d -> page.countRowsNow() >= 1);
 
-        Assert.assertTrue(page.isLoaded(),
-                "La página debe seguir mostrando la tabla tras aplicar búsqueda.");
+        Assert.assertEquals(page.getCandidateNameByRow(1), nombreExistente,
+                "Tras buscar por un nombre existente, ese candidato debe seguir visible en la tabla.");
     }
 
     /**

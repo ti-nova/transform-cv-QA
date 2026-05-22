@@ -31,6 +31,9 @@ public class TranformPage extends BasePage {
     // Enlace de descarga que aparece bajo la alerta de éxito
     private final By downloadLink     = By.xpath("//a[contains(.,'Ver procesado')]");
 
+    // Diálogo modal de Material UI (ej.: error al subir un archivo inválido)
+    private final By modalDialog      = By.cssSelector("div.MuiDialog-container, div[role='dialog']");
+
     public TranformPage(WebDriver driver) {
         super(driver);
     }
@@ -139,6 +142,23 @@ public class TranformPage extends BasePage {
     public boolean hasNoFileSelectedAlert() {
         return isAlertMessageVisible()
                 && getAlertMessage().toLowerCase().contains("selecciona al menos un archivo");
+    }
+
+    /**
+     * Espera brevemente a que aparezca un diálogo modal — por ejemplo el de
+     * "formato no permitido" que la app muestra al subir un archivo inválido.
+     *
+     * @param timeoutSeconds segundos máximos de espera.
+     * @return true si el diálogo apareció dentro del tiempo indicado.
+     */
+    public boolean waitForModalDialog(int timeoutSeconds) {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
+                    .until(ExpectedConditions.visibilityOfElementLocated(modalDialog));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     /**

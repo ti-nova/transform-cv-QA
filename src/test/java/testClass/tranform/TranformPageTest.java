@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import config.Config;
@@ -26,7 +26,7 @@ public class TranformPageTest {
     private final String originalPassword = Config.getUserPassword();
     private final String temporaryPassword = "ABC12345";
 
-    @BeforeTest
+    @BeforeClass
     public void setup() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
@@ -55,7 +55,7 @@ public class TranformPageTest {
         }
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();

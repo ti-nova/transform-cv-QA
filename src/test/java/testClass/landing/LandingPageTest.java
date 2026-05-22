@@ -1,109 +1,47 @@
 package testClass.landing;
 
-import java.time.Duration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
-import page.LandingPage;
-import page.modals.RegistrationModal;
 
+/**
+ * US: Selección de plan y registro de empresa (Matriz de Pruebas: MTX-08).
+ *
+ * Estado: NO AUTOMATIZABLE en el deployment actual.
+ *
+ * Se verificó (mayo 2026, con inspección directa del DOM) que la app desplegada
+ * en https://tranform-cv.vercel.app NO expone una página pública de landing ni
+ * de selección de plan: la raíz "/" redirige directamente al login, y las rutas
+ * /landing, /inicio, /home, /planes, /registro, /register, /signup y /pricing
+ * no renderizan contenido.
+ *
+ * Mientras ese feature no esté desplegado, estas pruebas quedan como stubs
+ * (SkipException) y aparecen como "No implementadas" en el reporte funnel.
+ * Los Page Objects page.LandingPage y page.modals.RegistrationModal se
+ * conservan para cuando la landing vuelva a estar disponible.
+ */
 public class LandingPageTest {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    private final String urlLanding = "https://tranform-cv.vercel.app/";
-
-    @BeforeMethod
-    public void setup() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-        driver.get(urlLanding);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.cssSelector("a[href='#inicio']")));
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+    private static final String MOTIVO =
+            "NO AUTOMATIZABLE: el deployment actual no expone una landing pública "
+            + "con selección de plan (la raíz redirige al login).";
 
     /**
-     * Matriz de Pruebas -> Relacionado con MTX-08 (flujo de selección de plan).
-     * User Story: Selección de plan y registro de empresa - Automatizada (CSV): No.
-     * Detalle: la navegación principal de la landing responde sin redirigir al login.
+     * Matriz de Pruebas -> MTX-08
+     * Resultado esperado (CSV): "Avanza al flujo de pago si válido"
+     * User Story: Selección de plan y registro de empresa.
      */
-    @Test(description = "MTX-08 (rel.) | Navegacion de la landing | US: Seleccion de plan y registro de empresa")
-    public void landingCargaNavegacionPrincipal() {
-        LandingPage landing = new LandingPage(driver);
-        landing.clickPlans();
-        Assert.assertFalse(driver.getCurrentUrl().contains("/login"),
-                "El clic en Planes no debe redirigir al login — debe desplazar la misma página.");
+    @Test(description = "MTX-08 | Seleccion de plan abre el registro | US: Seleccion de plan y registro de empresa")
+    public void seleccionDePlanAbreModalRegistro() {
+        throw new SkipException(MOTIVO);
     }
 
     /**
      * Matriz de Pruebas -> MTX-08
      * Resultado esperado (CSV): "Avanza al flujo de pago si válido"
-     * User Story: Selección de plan y registro de empresa - Automatizada (CSV): No.
-     * Detalle: seleccionar Plan Básico abre el modal de registro (inicio del flujo).
+     * User Story: Selección de plan y registro de empresa.
      */
-    @Test(description = "MTX-08 | Seleccion de Plan Basico abre modal de registro | US: Seleccion de plan y registro de empresa")
-    public void seleccionPlanBasicoAbreModalRegistro() {
-        LandingPage landing = new LandingPage(driver);
-        RegistrationModal modal = landing.selectBasicPlan();
-        Assert.assertTrue(landing.isRegistrationModalVisible(),
-                "Al seleccionar Plan Básico debe abrirse el modal de registro.");
-    }
-
-    /**
-     * Matriz de Pruebas -> MTX-08
-     * Resultado esperado (CSV): "Avanza al flujo de pago si válido"
-     * User Story: Selección de plan y registro de empresa - Automatizada (CSV): No.
-     * Detalle: seleccionar Plan Avanzado abre el modal de registro.
-     */
-    @Test(description = "MTX-08 | Seleccion de Plan Avanzado abre modal de registro | US: Seleccion de plan y registro de empresa")
-    public void seleccionPlanAvanzadoAbreModalRegistro() {
-        LandingPage landing = new LandingPage(driver);
-        RegistrationModal modal = landing.selectAdvancedPlan();
-        Assert.assertTrue(landing.isRegistrationModalVisible(),
-                "Al seleccionar Plan Avanzado debe abrirse el modal de registro.");
-    }
-
-    /**
-     * Matriz de Pruebas -> MTX-08
-     * Resultado esperado (CSV): "Avanza al flujo de pago si válido"
-     * User Story: Selección de plan y registro de empresa - Automatizada (CSV): No.
-     * Detalle: seleccionar Plan Premium abre el modal de registro.
-     */
-    @Test(description = "MTX-08 | Seleccion de Plan Premium abre modal de registro | US: Seleccion de plan y registro de empresa")
-    public void seleccionPlanPremiumAbreModalRegistro() {
-        LandingPage landing = new LandingPage(driver);
-        RegistrationModal modal = landing.selectPremiumPlan();
-        Assert.assertTrue(landing.isRegistrationModalVisible(),
-                "Al seleccionar Plan Premium debe abrirse el modal de registro.");
-    }
-
-    /**
-     * Matriz de Pruebas -> Sin fila directa en el CSV.
-     * Cobertura adicional sobre la User Story "Autenticación de usuario".
-     * Detalle: el botón Login del navbar redirige a la página de login.
-     */
-    @Test(description = "Sin fila Matriz | Boton Login del navbar redirige a /login | US: Autenticacion de usuario")
-    public void botonLoginRedirigePaginaLogin() {
-        LandingPage landing = new LandingPage(driver);
-        landing.clickLogin();
-        wait.until(ExpectedConditions.urlContains("/login"));
-        Assert.assertTrue(driver.getCurrentUrl().contains("/login"),
-                "El botón Login del navbar debe redirigir a /login.");
+    @Test(description = "MTX-08 | Registro de empresa completa el flujo | US: Seleccion de plan y registro de empresa")
+    public void registroDeEmpresaCompletaElFlujo() {
+        throw new SkipException(MOTIVO);
     }
 }

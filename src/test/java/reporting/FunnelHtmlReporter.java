@@ -17,20 +17,22 @@ import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
+import org.testng.SkipException;
 import org.testng.xml.XmlSuite;
 
 /**
  * Reporte HTML tipo "funnel" que clasifica la ejecucion de la suite en:
  *  - Aprobadas        : tests que pasaron.
- *  - Reprobadas       : tests que fallaron (con el mensaje de error).
- *  - No implementadas : tests omitidos via SkipException (stubs pendientes).
+ *  - Reprobadas       : tests que fallaron, MAS los omitidos por un error en su
+ *                       preparacion (@BeforeClass/@BeforeMethod) o dependencia.
+ *  - No implementadas : tests omitidos a proposito via SkipException (stubs).
  *
- * Se registra automaticamente mediante el mecanismo ServiceLoader de TestNG,
- * a traves del archivo:
- *   src/test/resources/META-INF/services/org.testng.ITestNGListener
+ * La distincion clave: un test "skipped" por TestNG puede ser un stub pendiente
+ * (lanza SkipException) o un test real que no pudo ejecutarse por un fallo de
+ * preparacion. Solo el primero es "no implementado"; el segundo es una falla.
  *
- * Al finalizar la suite genera el archivo "reporte-funnel.html" dentro del
- * directorio de salida de TestNG (normalmente "test-output").
+ * Se registra via ServiceLoader (META-INF/services/org.testng.ITestNGListener)
+ * y genera "reporte-funnel.html" en el directorio de salida de TestNG.
  */
 public class FunnelHtmlReporter implements IReporter {
 
@@ -49,14 +51,29 @@ public class FunnelHtmlReporter implements IReporter {
             }
         }
 
+        // Los "skipped" se separan en dos grupos:
+        //  - pendientes : stubs que lanzan SkipException a proposito.
+        //  - bloqueadas : tests omitidos por un fallo en su preparacion o
+        //                 dependencia -> en la practica cuentan como falla.
+        List<ITestResult> pendientes = new ArrayList<>();
+        List<ITestResult> bloqueadas = new ArrayList<>();
+        for (ITestResult r : skipped) {
+            if (r.getThrowable() instanceof SkipException) {
+                pendientes.add(r);
+            } else {
+                bloqueadas.add(r);
+            }
+        }
+
         Comparator<ITestResult> byName = Comparator
                 .comparing((ITestResult r) -> r.getTestClass().getName())
                 .thenComparing(r -> r.getMethod().getMethodName());
         passed.sort(byName);
         failed.sort(byName);
-        skipped.sort(byName);
+        bloqueadas.sort(byName);
+        pendientes.sort(byName);
 
-        String html = buildHtml(passed, failed, skipped);
+        String html = buildHtml(passed, failed, bloqueadas, pendientes);
 
         Path output = Paths.get(outputDirectory, "reporte-funnel.html");
         try {
@@ -75,15 +92,16 @@ public class FunnelHtmlReporter implements IReporter {
         }
     }
 
-    private String buildHtml(List<ITestResult> passed, List<ITestResult> failed, List<ITestResult> skipped) {
+    private String buildHtml(List<ITestResult> passed, List<ITestResult> failed,
+                             List<ITestResult> bloqueadas, List<ITestResult> pendientes) {
         int nPassed = passed.size();
-        int nFailed = failed.size();
-        int nSkipped = skipped.size();
-        int total = nPassed + nFailed + nSkipped;
+        int nReprobadas = failed.size() + bloqueadas.size();
+        int nPendientes = pendientes.size();
+        int total = nPassed + nReprobadas + nPendientes;
 
         double pctPassed = total == 0 ? 0 : (nPassed * 100.0 / total);
-        double pctFailed = total == 0 ? 0 : (nFailed * 100.0 / total);
-        double pctSkipped = total == 0 ? 0 : (nSkipped * 100.0 / total);
+        double pctFail = total == 0 ? 0 : (nReprobadas * 100.0 / total);
+        double pctPend = total == 0 ? 0 : (nPendientes * 100.0 / total);
 
         String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
 
@@ -99,13 +117,16 @@ public class FunnelHtmlReporter implements IReporter {
         sb.append("  <h1>Reporte de Ejecucion - Funnel de Pruebas</h1>\n");
         sb.append("  <p class=\"sub\">transform-cv-QA &middot; Selenium + TestNG &middot; Generado el ")
           .append(timestamp).append("</p>\n");
+        sb.append("  <p class=\"note\">Aprobadas = pasaron &nbsp;&bull;&nbsp; "
+                + "Reprobadas = fallaron u omitidas por error en su preparacion &nbsp;&bull;&nbsp; "
+                + "No implementadas = stubs pendientes (SkipException)</p>\n");
         sb.append("</header>\n");
 
         sb.append("<section class=\"cards\">\n");
         sb.append(card("Total", total, "card-total"));
         sb.append(card("Aprobadas", nPassed, "card-pass"));
-        sb.append(card("Reprobadas", nFailed, "card-fail"));
-        sb.append(card("No implementadas", nSkipped, "card-skip"));
+        sb.append(card("Reprobadas", nReprobadas, "card-fail"));
+        sb.append(card("No implementadas", nPendientes, "card-skip"));
         sb.append("</section>\n");
 
         sb.append("<section class=\"funnel\">\n");
@@ -115,13 +136,13 @@ public class FunnelHtmlReporter implements IReporter {
             sb.append("    <div class=\"seg seg-pass\" style=\"width:").append(fmt(pctPassed))
               .append("%\">").append(fmt(pctPassed)).append("%</div>\n");
         }
-        if (nFailed > 0) {
-            sb.append("    <div class=\"seg seg-fail\" style=\"width:").append(fmt(pctFailed))
-              .append("%\">").append(fmt(pctFailed)).append("%</div>\n");
+        if (nReprobadas > 0) {
+            sb.append("    <div class=\"seg seg-fail\" style=\"width:").append(fmt(pctFail))
+              .append("%\">").append(fmt(pctFail)).append("%</div>\n");
         }
-        if (nSkipped > 0) {
-            sb.append("    <div class=\"seg seg-skip\" style=\"width:").append(fmt(pctSkipped))
-              .append("%\">").append(fmt(pctSkipped)).append("%</div>\n");
+        if (nPendientes > 0) {
+            sb.append("    <div class=\"seg seg-skip\" style=\"width:").append(fmt(pctPend))
+              .append("%\">").append(fmt(pctPend)).append("%</div>\n");
         }
         if (total == 0) {
             sb.append("    <div class=\"seg\" style=\"width:100%;background:#9aa5b1\">Sin resultados</div>\n");
@@ -129,14 +150,31 @@ public class FunnelHtmlReporter implements IReporter {
         sb.append("  </div>\n");
         sb.append("  <div class=\"legend\">\n");
         sb.append("    <span><i class=\"dot dot-pass\"></i> Aprobadas (").append(nPassed).append(")</span>\n");
-        sb.append("    <span><i class=\"dot dot-fail\"></i> Reprobadas (").append(nFailed).append(")</span>\n");
-        sb.append("    <span><i class=\"dot dot-skip\"></i> No implementadas (").append(nSkipped).append(")</span>\n");
+        sb.append("    <span><i class=\"dot dot-fail\"></i> Reprobadas (").append(nReprobadas).append(")</span>\n");
+        sb.append("    <span><i class=\"dot dot-skip\"></i> No implementadas (").append(nPendientes).append(")</span>\n");
         sb.append("  </div>\n");
         sb.append("</section>\n");
 
-        sb.append(table("Reprobadas", "fail", failed, true));
-        sb.append(table("No implementadas (pendientes)", "skip", skipped, true));
-        sb.append(table("Aprobadas", "pass", passed, false));
+        // Reprobadas = fallas reales + bloqueadas (omitidas por error de preparacion).
+        sb.append("<section class=\"results\">\n");
+        sb.append("  <h2>Reprobadas <span class=\"count count-fail\">").append(nReprobadas)
+          .append("</span></h2>\n");
+        if (nReprobadas == 0) {
+            sb.append("  <p class=\"empty\">Sin registros.</p>\n");
+        } else {
+            sb.append(openTable(true));
+            for (ITestResult r : failed) {
+                sb.append(row(r, true, ""));
+            }
+            for (ITestResult r : bloqueadas) {
+                sb.append(row(r, true, "[Omitida por fallo en la preparacion] "));
+            }
+            sb.append(closeTable());
+        }
+        sb.append("</section>\n");
+
+        sb.append(simpleSection("No implementadas (pendientes)", "skip", pendientes, true));
+        sb.append(simpleSection("Aprobadas", "pass", passed, false));
 
         sb.append("<footer>Reporte generado automaticamente por FunnelHtmlReporter "
                 + "(IReporter de TestNG).</footer>\n");
@@ -144,56 +182,63 @@ public class FunnelHtmlReporter implements IReporter {
         return sb.toString();
     }
 
-    private String card(String label, int value, String cssClass) {
-        return "  <div class=\"card " + cssClass + "\">"
-                + "<div class=\"cnum\">" + value + "</div>"
-                + "<div class=\"clbl\">" + esc(label) + "</div></div>\n";
-    }
-
-    private String table(String title, String kind, List<ITestResult> results, boolean showReason) {
+    private String simpleSection(String title, String kind, List<ITestResult> results, boolean showReason) {
         StringBuilder sb = new StringBuilder();
         sb.append("<section class=\"results\">\n");
         sb.append("  <h2>").append(esc(title)).append(" <span class=\"count count-").append(kind)
           .append("\">").append(results.size()).append("</span></h2>\n");
-
         if (results.isEmpty()) {
             sb.append("  <p class=\"empty\">Sin registros.</p>\n</section>\n");
             return sb.toString();
         }
+        sb.append(openTable(showReason));
+        for (ITestResult r : results) {
+            sb.append(row(r, showReason, ""));
+        }
+        sb.append(closeTable());
+        sb.append("</section>\n");
+        return sb.toString();
+    }
 
+    private String openTable(boolean showReason) {
+        StringBuilder sb = new StringBuilder();
         sb.append("  <table>\n    <thead><tr>");
         sb.append("<th>Clase</th><th>Metodo</th><th>Caso / Matriz de Pruebas</th><th>Duracion</th>");
         if (showReason) {
             sb.append("<th>Detalle</th>");
         }
         sb.append("</tr></thead>\n    <tbody>\n");
+        return sb.toString();
+    }
 
-        for (ITestResult r : results) {
-            String cls = simpleClass(r.getTestClass().getName());
-            String method = r.getMethod().getMethodName();
-            String desc = r.getMethod().getDescription();
-            if (desc == null || desc.isBlank()) {
-                desc = "(sin descripcion)";
-            }
-            long ms = r.getEndMillis() - r.getStartMillis();
+    private String closeTable() {
+        return "    </tbody>\n  </table>\n";
+    }
 
-            sb.append("      <tr>");
-            sb.append("<td>").append(esc(cls)).append("</td>");
-            sb.append("<td class=\"mono\">").append(esc(method)).append("</td>");
-            sb.append("<td>").append(esc(desc)).append("</td>");
-            sb.append("<td class=\"dur\">").append(ms).append(" ms</td>");
-            if (showReason) {
-                String reason = "";
-                Throwable t = r.getThrowable();
-                if (t != null) {
-                    reason = t.getMessage() != null ? t.getMessage() : t.getClass().getSimpleName();
-                }
-                sb.append("<td class=\"reason\">").append(esc(reason)).append("</td>");
-            }
-            sb.append("</tr>\n");
+    private String row(ITestResult r, boolean showReason, String reasonPrefix) {
+        String cls = simpleClass(r.getTestClass().getName());
+        String method = r.getMethod().getMethodName();
+        String desc = r.getMethod().getDescription();
+        if (desc == null || desc.isBlank()) {
+            desc = "(sin descripcion)";
         }
+        long ms = r.getEndMillis() - r.getStartMillis();
 
-        sb.append("    </tbody>\n  </table>\n</section>\n");
+        StringBuilder sb = new StringBuilder();
+        sb.append("      <tr>");
+        sb.append("<td>").append(esc(cls)).append("</td>");
+        sb.append("<td class=\"mono\">").append(esc(method)).append("</td>");
+        sb.append("<td>").append(esc(desc)).append("</td>");
+        sb.append("<td class=\"dur\">").append(ms).append(" ms</td>");
+        if (showReason) {
+            String reason = "";
+            Throwable t = r.getThrowable();
+            if (t != null) {
+                reason = t.getMessage() != null ? t.getMessage() : t.getClass().getSimpleName();
+            }
+            sb.append("<td class=\"reason\">").append(esc(reasonPrefix + reason)).append("</td>");
+        }
+        sb.append("</tr>\n");
         return sb.toString();
     }
 
@@ -207,6 +252,12 @@ public class FunnelHtmlReporter implements IReporter {
 
     private String fmt(double d) {
         return String.format(Locale.US, "%.1f", d);
+    }
+
+    private String card(String label, int value, String cssClass) {
+        return "  <div class=\"card " + cssClass + "\">"
+                + "<div class=\"cnum\">" + value + "</div>"
+                + "<div class=\"clbl\">" + esc(label) + "</div></div>\n";
     }
 
     private String esc(String s) {
@@ -227,6 +278,7 @@ public class FunnelHtmlReporter implements IReporter {
             + "header { margin-bottom:24px; }\n"
             + "header h1 { font-size:24px; color:#102a43; }\n"
             + "header .sub { color:#627d98; font-size:13px; margin-top:4px; }\n"
+            + "header .note { color:#829ab1; font-size:12px; margin-top:6px; }\n"
             + ".cards { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:28px; }\n"
             + ".card { flex:1; min-width:160px; background:#fff; border-radius:10px;"
             + " padding:20px; box-shadow:0 1px 3px rgba(0,0,0,.08); border-left:5px solid #9aa5b1; }\n"

@@ -20,6 +20,10 @@ public class SidebarComponent {
     private final By myTeamOption = By.xpath("//span[normalize-space()='Mi Equipo']");
     private final By rolesPermissionsOption = By.xpath("//span[normalize-space()='Roles y Permisos']");
     private final By logoutOption = By.xpath("//span[normalize-space()='Cerrar sesión']");
+    // El botón de confirmar (acción destructiva, color rojo) en el diálogo
+    // "¿Cerrar sesión?". Se localiza por la clase de color para tolerar las
+    // variaciones de texto ("Cerrar Sesión" / "Cerrar sesión").
+    private final By confirmLogoutButton = By.xpath("//div[@role='dialog']//button[contains(@class,'MuiButton-colorError')]");
 
     public SidebarComponent(WebDriver driver) {
         this.driver = driver;
@@ -57,5 +61,7 @@ public class SidebarComponent {
 
     public void logoutFromSidebar() {
         wait.until(ExpectedConditions.elementToBeClickable(logoutOption)).click();
+        // Aparece el diálogo de confirmación "¿Cerrar sesión?".
+        wait.until(ExpectedConditions.elementToBeClickable(confirmLogoutButton)).click();
     }
 }

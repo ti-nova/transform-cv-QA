@@ -8,8 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import page.DashboardPage;
 import page.LogInPage;
@@ -23,7 +23,7 @@ public class DashboardTest {
     private final String urlLogin = "https://tranform-cv.vercel.app/login";
     private final String urlDashboard = "https://tranform-cv.vercel.app/dashboard";
 
-    @BeforeTest
+    @BeforeClass
     public void setup() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
@@ -53,9 +53,14 @@ public class DashboardTest {
             new TranformPage(driver).sidebar().goToDashboard();
             wait.until(ExpectedConditions.urlContains("/dashboard"));
         }
+
+        // Espera a que el contenido del dashboard renderice (no solo la URL),
+        // para que los tests no evalúen la página antes de tiempo.
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h4[contains(.,'Consumo de CVs Transformados')]")));
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();

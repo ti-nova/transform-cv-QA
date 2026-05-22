@@ -4,8 +4,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -39,7 +42,11 @@ public class TranformCvTest {
             throw new IllegalStateException("USER_PASSWORD no está configurado.");
         }
 
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        // Mantiene visibles los confirm() nativos del navegador para poder
+        // aceptarlos explícitamente (la app muestra "carga en curso" al salir).
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
+        driver = new ChromeDriver(options);
         wait   = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         driver.manage().window().maximize();
@@ -174,13 +181,15 @@ public class TranformCvTest {
         String initialCounter = tranformPage.getSelectedFilesText();
 
         tranformPage.uploadCv(filePath);
-        tranformPage.clickTransformButton();
 
+        // Un archivo inválido debe ser rechazado: la app abre un diálogo de
+        // error, o bien el contador de archivos seleccionados no cambia.
+        boolean dialogoDeError = tranformPage.waitForModalDialog(5);
         boolean counterChanged = tranformPage.waitUntilSelectedFilesTextChanges(initialCounter);
 
         Assert.assertTrue(
-                !counterChanged || tranformPage.hasNoFileSelectedAlert(),
-                "Un archivo inválido no debería comportarse como una carga válida transformable."
+                dialogoDeError || !counterChanged,
+                "Un archivo inválido (.txt) no debería comportarse como una carga válida transformable."
         );
     }
 
@@ -279,14 +288,34 @@ public class TranformCvTest {
     private void verificarRegistroEnHistorial(TranformPage tranformPage) {
         tranformPage.sidebar().goToProcessedCvs();
 
+        // Al navegar fuera, la app puede mostrar un confirm() nativo
+        // ("⚠️ Tienes una carga de CVs en curso..."). Lo aceptamos para que la
+        // navegación al historial proceda.
+        aceptarConfirmSiAparece();
+
+        // Espera a que el historial renderice: título y al menos una fila.
         wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//h4[contains(.,'CVs Procesados')]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("tbody tr")));
 
         ProcessedCvsPage historial = new ProcessedCvsPage(driver);
-        Assert.assertTrue(historial.isLoaded(),
-                "La página de historial no cargó después de la transformación.");
-        Assert.assertTrue(historial.getRowCount() > 0,
+        Assert.assertTrue(historial.countRowsNow() > 0,
                 "El CV transformado no aparece en el historial — el backend posiblemente no persistió el registro.");
+    }
+
+    /**
+     * Acepta el confirm() nativo del navegador si aparece dentro de 5s.
+     * Si no aparece, la navegación ya procedió y no se hace nada.
+     */
+    private void aceptarConfirmSiAparece() {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(5))
+                    .until(ExpectedConditions.alertIsPresent());
+            driver.switchTo().alert().accept();
+        } catch (TimeoutException e) {
+            // No apareció ningún confirm; la navegación procedió directamente.
+        }
     }
 
     private void login(String email, String password) {

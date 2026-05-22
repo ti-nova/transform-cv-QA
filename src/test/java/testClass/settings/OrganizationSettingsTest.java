@@ -8,8 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import page.LogInPage;
 import page.OrganizationSettingsPage;
@@ -22,7 +22,7 @@ public class OrganizationSettingsTest {
 
     private final String urlLogin = "https://tranform-cv.vercel.app/login";
 
-    @BeforeTest
+    @BeforeClass
     public void setup() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");
@@ -56,7 +56,7 @@ public class OrganizationSettingsTest {
                 By.xpath("//h4[contains(.,'Configuración del PDF')]")));
     }
 
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
