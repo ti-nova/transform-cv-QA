@@ -38,7 +38,12 @@ public class LogInPageTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-11
+     * Resultado esperado (CSV): "Rechaza acceso y muestra error"
+     * User Story: Autenticacion de usuario - Prioridad: Alta - Automatizada (CSV): Si
+     */
+    @Test(description = "MTX-11 | Rechaza acceso y muestra error | US: Autenticacion de usuario")
     public void ingresoUsuarioIncorrecto() {
         LogInPage loginPage = new LogInPage(driver);
         loginPage.enterUserEmail("usuario_invalido@test.com");
@@ -49,7 +54,12 @@ public class LogInPageTest {
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-12
+     * Resultado esperado (CSV): "Acceso correcto al sistema"
+     * User Story: Autenticacion de usuario - Prioridad: Alta - Automatizada (CSV): Si
+     */
+    @Test(description = "MTX-12 | Acceso correcto al sistema | US: Autenticacion de usuario")
     public void ingresoUsuarioCorrecto() {
         if (Config.getUserEmail() == null || Config.getUserEmail().isBlank()) {
             throw new IllegalStateException("USER_EMAIL no está configurado.");

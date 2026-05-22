@@ -16,5 +16,20 @@ dependencies {
 }
 
 test {
-    useTestNG()
+    useTestNG {
+        // Agrupa los métodos por instancia (clase). Evita que TestNG intercale
+        // clases a causa de los dependsOnMethods: así cada navegador se abre y
+        // se cierra mientras corre su propia clase, uno a la vez.
+        groupByInstances = true
+    }
+    // Al terminar, abre el reporte funnel en el navegador.
+    finalizedBy 'abrirReporteFunnel'
+}
+
+task abrirReporteFunnel(type: Exec) {
+    description = 'Abre el reporte funnel en el navegador al terminar las pruebas.'
+    def reporte = file('build/reports/tests/test/reporte-funnel.html')
+    onlyIf { reporte.exists() }
+    commandLine 'powershell', '-NoProfile', '-Command', "Start-Process '${reporte.absolutePath}'"
+    ignoreExitValue = true
 }

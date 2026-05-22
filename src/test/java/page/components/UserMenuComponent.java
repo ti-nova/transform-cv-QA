@@ -18,6 +18,10 @@ public class UserMenuComponent {
     private final By myProfileOption = By.xpath("//li[@role='menuitem' and contains(.,'Mi Perfil')]");
     private final By changePasswordOption = By.xpath("//li[@role='menuitem' and contains(.,'Cambiar Contraseña')]");
     private final By logoutOption = By.xpath("//li[@role='menuitem' and contains(.,'Cerrar Sesión')]");
+    // El botón de confirmar (acción destructiva, color rojo) en el diálogo
+    // "¿Cerrar sesión?". Se localiza por la clase de color para tolerar las
+    // variaciones de texto ("Cerrar Sesión" / "Cerrar sesión").
+    private final By confirmLogoutButton = By.xpath("//div[@role='dialog']//button[contains(@class,'MuiButton-colorError')]");
 
     public UserMenuComponent(WebDriver driver) {
         this.driver = driver;
@@ -48,5 +52,7 @@ public class UserMenuComponent {
     public void logout() {
         open();
         wait.until(ExpectedConditions.elementToBeClickable(logoutOption)).click();
+        // Al hacer clic aparece un diálogo "¿Cerrar sesión?" que hay que confirmar.
+        wait.until(ExpectedConditions.elementToBeClickable(confirmLogoutButton)).click();
     }
 }
