@@ -61,14 +61,25 @@ public class ProcessedCvsTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de CV transformados".
+     * Detalle: la página de historial carga con título y tabla.
+     */
+    @Test(description = "Sin fila Matriz | Historial de CVs Procesados carga | US: Gestion de CV transformados")
     public void paginaCvsProcesadosCargaCorrectamente() {
         ProcessedCvsPage page = new ProcessedCvsPage(driver);
         Assert.assertTrue(page.isLoaded(),
                 "La página 'CVs Procesados' debe cargar con título y tabla visibles.");
     }
 
-    @Test(dependsOnMethods = "paginaCvsProcesadosCargaCorrectamente")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de CV transformados".
+     * Detalle: la tabla del historial contiene al menos un registro.
+     */
+    @Test(description = "Sin fila Matriz | Tabla del historial muestra registros | US: Gestion de CV transformados",
+            dependsOnMethods = "paginaCvsProcesadosCargaCorrectamente")
     public void tablaMuestraRegistrosDeCV() {
         ProcessedCvsPage page = new ProcessedCvsPage(driver);
         int rows = page.getRowCount();
@@ -76,7 +87,13 @@ public class ProcessedCvsTest {
                 "La tabla debe contener al menos un CV procesado.");
     }
 
-    @Test(dependsOnMethods = "paginaCvsProcesadosCargaCorrectamente")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de CV transformados".
+     * Detalle: la búsqueda por nombre filtra los resultados de la tabla.
+     */
+    @Test(description = "Sin fila Matriz | Busqueda por nombre filtra resultados | US: Gestion de CV transformados",
+            dependsOnMethods = "paginaCvsProcesadosCargaCorrectamente")
     public void busquedaPorNombreFiltraResultados() {
         ProcessedCvsPage page = new ProcessedCvsPage(driver);
         int rowsBefore = page.getRowCount();
@@ -91,7 +108,13 @@ public class ProcessedCvsTest {
                 "La página debe seguir mostrando la tabla tras aplicar búsqueda.");
     }
 
-    @Test(dependsOnMethods = "tablaMuestraRegistrosDeCV")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de CV transformados".
+     * Detalle: el primer registro de la tabla expone el nombre del candidato.
+     */
+    @Test(description = "Sin fila Matriz | Primer registro tiene nombre visible | US: Gestion de CV transformados",
+            dependsOnMethods = "tablaMuestraRegistrosDeCV")
     public void primerRegistroTieneNombreVisible() {
         ProcessedCvsPage page = new ProcessedCvsPage(driver);
         String name = page.getCandidateNameByRow(1);

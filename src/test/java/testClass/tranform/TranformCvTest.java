@@ -65,7 +65,12 @@ public class TranformCvTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: carga de PDF valido - la UI debe registrar exactamente 1 archivo.
+     * Automatizada (CSV): la fila MTX-18 figura como "No"; este test la automatiza.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Carga de PDF valido registra 1 archivo en la UI")
     public void cpTr001_cargaPdfValido_registraCargaEnUi() {
         TranformPage tranformPage = new TranformPage(driver);
         String filePath       = getFilePath("cv_valido.pdf");
@@ -85,7 +90,11 @@ public class TranformCvTest {
         );
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: carga de DOCX valido - la UI debe registrar exactamente 1 archivo.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Carga de DOCX valido registra 1 archivo en la UI")
     public void cpTr002_cargaDocxValido_registraCargaEnUi() {
         TranformPage tranformPage = new TranformPage(driver);
         String filePath       = getFilePath("cv_valido.docx");
@@ -105,7 +114,11 @@ public class TranformCvTest {
         );
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: intentar transformar sin archivo seleccionado debe mostrar alerta.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Transformar sin archivo muestra alerta")
     public void cpTr003_transformarSinArchivo_muestraAlerta() {
         TranformPage tranformPage = new TranformPage(driver);
 
@@ -117,7 +130,11 @@ public class TranformCvTest {
         );
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: el textarea de requerimientos refleja el texto ingresado.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Ingreso de requerimientos actualiza el textarea")
     public void cpTr004_ingresoRequerimientos_actualizaTextarea() {
         TranformPage tranformPage = new TranformPage(driver);
         String requirements = "QA Analyst con experiencia en Selenium, TestNG y pruebas funcionales.";
@@ -127,7 +144,11 @@ public class TranformCvTest {
         Assert.assertEquals(tranformPage.getRequirementsText(), requirements);
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: el checkbox "Incluir presentacion" cambia de estado al hacer clic.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Checkbox de presentacion cambia de estado")
     public void cpTr005_checkboxPresentacion_cambiaEstado() {
         TranformPage tranformPage = new TranformPage(driver);
         boolean initialState = tranformPage.isIncludePresentationChecked();
@@ -141,7 +162,12 @@ public class TranformCvTest {
         );
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: relacionado con "Solo deja cargar archivos en PDF" - un archivo
+     * .txt no debe comportarse como una carga valida transformable.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Archivo invalido (.txt) no se procesa como carga valida")
     public void cpTr006_archivoInvalido_mantieneEstadoSinCargaValida() {
         TranformPage tranformPage = new TranformPage(driver);
         String filePath       = getFilePath("archivo_invalido.txt");
@@ -158,7 +184,12 @@ public class TranformCvTest {
         );
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: flujo completo - transformar un PDF valido y verificar que el
+     * registro queda persistido en el historial de CVs Procesados.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Transformar PDF valido completa con exito y queda en historial")
     public void cpTr007_transformarPdfValido_completaTransformacionConExito() {
         TranformPage tranformPage = new TranformPage(driver);
         String filePath       = getFilePath("cv_valido.pdf");
@@ -199,7 +230,12 @@ public class TranformCvTest {
         verificarRegistroEnHistorial(tranformPage);
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-18 (User Story: Transformar CV)
+     * Detalle: flujo completo - transformar un DOCX valido y verificar que el
+     * registro queda persistido en el historial de CVs Procesados.
+     */
+    @Test(description = "MTX-18 (Transformar CV) | Transformar DOCX valido completa con exito y queda en historial")
     public void cpTr008_transformarDocxValido_completaTransformacionConExito() {
         TranformPage tranformPage = new TranformPage(driver);
         String filePath       = getFilePath("cv_valido.docx");

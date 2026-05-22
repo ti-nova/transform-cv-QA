@@ -62,28 +62,52 @@ public class DashboardTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-16
+     * Resultado esperado (CSV): "Métricas correctas desplegadas"
+     * User Story: Consultar métricas por el listado de clientes - Prioridad: Media
+     * Automatizada (CSV): la fila figura como "No aplica" (manual); este test la automatiza.
+     */
+    @Test(description = "MTX-16 | Metricas correctas desplegadas - titulo del panel | US: Consultar metricas")
     public void dashboardCargaTituloConsumoDeCV() {
         DashboardPage dashboard = new DashboardPage(driver);
         Assert.assertTrue(dashboard.isLoaded(),
                 "El título 'Consumo de CVs Transformados' debe estar visible en el dashboard.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
+    /**
+     * Matriz de Pruebas -> MTX-16
+     * Resultado esperado (CSV): "Métricas correctas desplegadas"
+     * User Story: Consultar métricas por el listado de clientes
+     */
+    @Test(description = "MTX-16 | Metricas correctas desplegadas - CVs usados | US: Consultar metricas",
+            dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
     public void dashboardMuestraMetricaCvsUsados() {
         DashboardPage dashboard = new DashboardPage(driver);
         Assert.assertTrue(dashboard.isCvsUsedVisible(),
                 "La etiqueta 'CVs usados' debe ser visible.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
+    /**
+     * Matriz de Pruebas -> MTX-16
+     * Resultado esperado (CSV): "Métricas correctas desplegadas"
+     * User Story: Consultar métricas por el listado de clientes
+     */
+    @Test(description = "MTX-16 | Metricas correctas desplegadas - CVs restantes | US: Consultar metricas",
+            dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
     public void dashboardMuestraMetricaCvsRestantes() {
         DashboardPage dashboard = new DashboardPage(driver);
         Assert.assertTrue(dashboard.isCvsRemainingVisible(),
                 "La etiqueta 'CVs restantes' debe ser visible.");
     }
 
-    @Test(dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
+    /**
+     * Matriz de Pruebas -> MTX-16
+     * Resultado esperado (CSV): "Métricas correctas desplegadas"
+     * User Story: Consultar métricas por el listado de clientes
+     */
+    @Test(description = "MTX-16 | Metricas correctas desplegadas - grafico por usuario | US: Consultar metricas",
+            dependsOnMethods = "dashboardCargaTituloConsumoDeCV")
     public void dashboardMuestraGraficoUtilizacionPorUsuario() {
         DashboardPage dashboard = new DashboardPage(driver);
         Assert.assertTrue(dashboard.isUsageByUserChartVisible(),

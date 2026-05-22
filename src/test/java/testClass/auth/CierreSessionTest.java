@@ -55,7 +55,13 @@ public class CierreSessionTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-15
+     * Resultado esperado (CSV): "Cierra sesión y redirige al login"
+     * User Story: Cierre de sesión - Prioridad: Alta - Automatizada (CSV): Si
+     * Variante: cierre desde el menú de usuario (dropdown superior).
+     */
+    @Test(description = "MTX-15 | Cierra sesion y redirige al login (menu usuario) | US: Cierre de sesion")
     public void cierraSesionDesdeMenuUsuarioYRedirigAlLogin() {
         new TranformPage(driver).userMenu().logout();
 
@@ -65,7 +71,13 @@ public class CierreSessionTest {
                 "Después de cerrar sesión debe redirigir al login.");
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-15
+     * Resultado esperado (CSV): "Cierra sesión y redirige al login"
+     * User Story: Cierre de sesión - Prioridad: Alta - Automatizada (CSV): Si
+     * Variante: cierre desde la opción del sidebar.
+     */
+    @Test(description = "MTX-15 | Cierra sesion y redirige al login (sidebar) | US: Cierre de sesion")
     public void cierraSesionDesdeSidebarYRedirigAlLogin() {
         new TranformPage(driver).sidebar().logoutFromSidebar();
 

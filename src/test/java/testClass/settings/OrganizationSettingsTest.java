@@ -63,14 +63,25 @@ public class OrganizationSettingsTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV (relacionado con MTX-17).
+     * Cobertura adicional sobre la User Story "Configuración de empresa".
+     * Detalle: la página "Configuración del PDF" carga correctamente.
+     */
+    @Test(description = "Sin fila Matriz | Configuracion de empresa carga | US: Configuracion de empresa")
     public void paginaConfiguracionOrganizacionCarga() {
         OrganizationSettingsPage page = new OrganizationSettingsPage(driver);
         Assert.assertTrue(page.isLoaded(),
                 "La página 'Configuración del PDF' debe estar visible.");
     }
 
-    @Test(dependsOnMethods = "paginaConfiguracionOrganizacionCarga")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV (relacionado con MTX-17).
+     * Cobertura adicional sobre la User Story "Configuración de empresa".
+     * Detalle: el campo nombre de la organización está disponible.
+     */
+    @Test(description = "Sin fila Matriz | Nombre de organizacion disponible | US: Configuracion de empresa",
+            dependsOnMethods = "paginaConfiguracionOrganizacionCarga")
     public void nombreOrganizacionEstaDisponible() {
         OrganizationSettingsPage page = new OrganizationSettingsPage(driver);
         String name = page.getOrganizationName();
@@ -78,7 +89,13 @@ public class OrganizationSettingsTest {
                 "El campo nombre de organización debe estar presente.");
     }
 
-    @Test(dependsOnMethods = "paginaConfiguracionOrganizacionCarga")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV (relacionado con MTX-17).
+     * Cobertura adicional sobre la User Story "Configuración de empresa".
+     * Detalle: el selector de fuente de encabezado está disponible.
+     */
+    @Test(description = "Sin fila Matriz | Fuente de encabezado disponible | US: Configuracion de empresa",
+            dependsOnMethods = "paginaConfiguracionOrganizacionCarga")
     public void fuenteEncabezadoEstaDisponible() {
         OrganizationSettingsPage page = new OrganizationSettingsPage(driver);
         String font = page.getHeaderFont();
@@ -88,7 +105,13 @@ public class OrganizationSettingsTest {
                 "El selector de fuente de encabezado no debe estar vacío.");
     }
 
-    @Test(dependsOnMethods = "paginaConfiguracionOrganizacionCarga")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV (relacionado con MTX-17).
+     * Cobertura adicional sobre la User Story "Configuración de empresa".
+     * Detalle: el campo tamaño de letra está disponible.
+     */
+    @Test(description = "Sin fila Matriz | Tamano de fuente disponible | US: Configuracion de empresa",
+            dependsOnMethods = "paginaConfiguracionOrganizacionCarga")
     public void tamanoFuenteEstaDisponible() {
         OrganizationSettingsPage page = new OrganizationSettingsPage(driver);
         String fontSize = page.getFontSize();

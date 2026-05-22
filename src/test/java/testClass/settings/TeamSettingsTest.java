@@ -63,14 +63,25 @@ public class TeamSettingsTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de roles y permisos / equipo".
+     * Detalle: la página "Mi Equipo" carga con título y tabla.
+     */
+    @Test(description = "Sin fila Matriz | Pagina Mi Equipo carga | US: Gestion de roles y permisos")
     public void paginaEquipoCargaCorrectamente() {
         TeamSettingsPage page = new TeamSettingsPage(driver);
         Assert.assertTrue(page.isLoaded(),
                 "La página 'Mi Equipo' debe cargar con título y tabla visibles.");
     }
 
-    @Test(dependsOnMethods = "paginaEquipoCargaCorrectamente")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de roles y permisos / equipo".
+     * Detalle: la tabla de equipo lista al menos un miembro.
+     */
+    @Test(description = "Sin fila Matriz | Tabla muestra miembros del equipo | US: Gestion de roles y permisos",
+            dependsOnMethods = "paginaEquipoCargaCorrectamente")
     public void tablaMuestraMiembrosDelEquipo() {
         TeamSettingsPage page = new TeamSettingsPage(driver);
         int count = page.getMemberCount();
@@ -78,7 +89,13 @@ public class TeamSettingsTest {
                 "La tabla de equipo debe tener al menos un miembro.");
     }
 
-    @Test(dependsOnMethods = "paginaEquipoCargaCorrectamente")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de roles y permisos / equipo".
+     * Detalle: el botón "Invitar a un Miembro" está visible y habilitado.
+     */
+    @Test(description = "Sin fila Matriz | Boton Invitar Miembro visible | US: Gestion de roles y permisos",
+            dependsOnMethods = "paginaEquipoCargaCorrectamente")
     public void botonInvitarMiembroEstaVisible() {
         TeamSettingsPage page = new TeamSettingsPage(driver);
         Assert.assertTrue(
@@ -87,7 +104,13 @@ public class TeamSettingsTest {
                 "El botón 'Invitar a un Miembro' debe estar visible y clickeable.");
     }
 
-    @Test(dependsOnMethods = "tablaMuestraMiembrosDelEquipo")
+    /**
+     * Matriz de Pruebas -> Sin fila directa en el CSV.
+     * Cobertura adicional sobre la User Story "Gestión de roles y permisos / equipo".
+     * Detalle: el primer miembro de la tabla expone un email con formato válido.
+     */
+    @Test(description = "Sin fila Matriz | Primer miembro tiene email valido | US: Gestion de roles y permisos",
+            dependsOnMethods = "tablaMuestraMiembrosDelEquipo")
     public void primerMiembroTieneEmailVisible() {
         TeamSettingsPage page = new TeamSettingsPage(driver);
         String email = page.getMemberEmailByRow(1);

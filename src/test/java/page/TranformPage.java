@@ -59,14 +59,11 @@ public class TranformPage extends BasePage {
                 input
         );
 
+        // sendKeys sobre un <input type=file> visible ya dispara el evento
+        // 'change' nativo del navegador, que React capta para registrar el
+        // archivo. NO se debe disparar 'change' manualmente después: eso
+        // provoca un doble registro del mismo archivo en la lista de la UI.
         input.sendKeys(absoluteFilePath);
-
-        // React necesita el evento 'change' para actualizar su estado interno.
-        // Solo 'change' (no 'input') para evitar el doble registro.
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].dispatchEvent(new Event('change', { bubbles: true }));",
-                input
-        );
     }
 
     /**

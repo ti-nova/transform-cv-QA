@@ -62,7 +62,12 @@ public class TranformPageTest {
         }
     }
 
-    @Test
+    /**
+     * Matriz de Pruebas -> MTX-13 y MTX-14
+     * Resultado esperado (CSV): "Rechaza contrasena invalida" / "Actualiza contrasena y confirma"
+     * User Story: Cambio de contrasena - Prioridad: Alta - Automatizada (CSV): Si
+     */
+    @Test(description = "MTX-13/MTX-14 | Actualiza contrasena y confirma | US: Cambio de contrasena")
     public void cambiarContrasena() {
         TranformPage tranformPage = new TranformPage(driver);
 
