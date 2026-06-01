@@ -3,7 +3,7 @@ package testClass.tranform;
 import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import config.DriverFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
@@ -36,10 +36,9 @@ public class TranformPageTest {
             throw new IllegalStateException("USER_PASSWORD no está configurado.");
         }
 
-        driver = new ChromeDriver();
+        driver = DriverFactory.create();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        driver.manage().window().maximize();
         driver.get(urlLogin);
 
         login(Config.getUserEmail(), originalPassword);

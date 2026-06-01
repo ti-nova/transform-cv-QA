@@ -22,7 +22,15 @@ test {
         // se cierra mientras corre su propia clase, uno a la vez.
         groupByInstances = true
     }
-    // Al terminar, abre el reporte funnel en el navegador.
+    // Imprime el stacktrace completo de cada test que falla — útil en CI.
+    testLogging {
+        events 'failed'
+        exceptionFormat 'full'
+        showStackTraces true
+        showCauses true
+        showExceptions true
+    }
+    // Al terminar, abre el reporte funnel en el navegador (solo Windows).
     finalizedBy 'abrirReporteFunnel'
 }
 
