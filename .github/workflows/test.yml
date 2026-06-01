@@ -27,12 +27,21 @@ jobs:
           java-version: '25'
           cache: gradle            # cachea dependencias para acelerar runs
 
-      - name: Instalar xvfb (display virtual para Chrome)
-        # ubuntu-latest ya trae Google Chrome preinstalado, pero no display.
-        # xvfb da un display virtual para que Selenium pueda abrir el navegador.
+      - name: Instalar xvfb y verificar Chrome
+        # xvfb provee el display virtual. Verificamos que Chrome esté presente;
+        # si no, lo instalamos (algunas imágenes de ubuntu-latest ya no lo traen).
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb
+          if ! command -v google-chrome &>/dev/null; then
+            echo "Chrome no encontrado, instalando..."
+            wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo apt-get install -y /tmp/chrome.deb
+          fi
+          echo "=== Versiones del runner ==="
+          google-chrome --version
+          java -version
+          which xvfb-run
 
       - name: Crear .env con credenciales (inyectadas desde GitHub Secrets)
         run: |
