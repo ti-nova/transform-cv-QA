@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import config.DriverFactory;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -46,7 +46,7 @@ public class TranformCvTest {
         // Mantiene visibles los confirm() nativos del navegador para poder
         // aceptarlos explícitamente (la app muestra "carga en curso" al salir).
         options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
-        driver = new ChromeDriver(options);
+        driver = DriverFactory.create(options);
         wait   = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         driver.manage().window().maximize();
