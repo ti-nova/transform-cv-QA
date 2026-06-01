@@ -1,0 +1,64 @@
+name: Pruebas QA
+
+# Cuándo se dispara este workflow.
+on:
+  push:
+    branches: [main, funnel]      # corre en cada push a main y a funnel
+  pull_request:
+    branches: [main]              # corre en cada PR que apunte a main
+  workflow_dispatch:              # botón "Run workflow" en la pestaña Actions
+  # schedule:                     # opcional: corrida diaria, descomentar para activar
+  #   - cron: '0 6 * * *'         # 06:00 UTC todos los días
+
+jobs:
+  test:
+    name: Suite Selenium + TestNG
+    runs-on: ubuntu-latest
+    timeout-minutes: 30           # corta runs colgados
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Setup Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle            # cachea dependencias para acelerar runs
+
+      - name: Instalar xvfb (display virtual para Chrome)
+        # ubuntu-latest ya trae Google Chrome preinstalado, pero no display.
+        # xvfb da un display virtual para que Selenium pueda abrir el navegador.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      - name: Crear .env con credenciales (inyectadas desde GitHub Secrets)
+        run: |
+          echo "USER_EMAIL=${{ secrets.USER_EMAIL }}" > .env
+          echo "USER_PASSWORD=${{ secrets.USER_PASSWORD }}" >> .env
+
+      - name: Permiso de ejecución al wrapper de Gradle
+        run: chmod +x gradlew
+
+      - name: Correr la suite completa
+        # -x abrirReporteFunnel: omite la tarea que abre el HTML (es solo Windows).
+        # xvfb-run: lanza el proceso con un display virtual asignado.
+        run: xvfb-run --auto-servernum ./gradlew test -x abrirReporteFunnel
+
+      - name: Subir reporte funnel (HTML)
+        if: always()                # sube el reporte aunque los tests fallen
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-funnel
+          path: build/reports/tests/test/reporte-funnel.html
+          if-no-files-found: warn
+
+      - name: Subir reporte completo (Gradle + TestNG)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-tests-completo
+          path: build/reports/tests/test/
+          if-no-files-found: warn
