@@ -39,7 +39,6 @@ public class TranformPageTest {
         driver = DriverFactory.create();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        driver.manage().window().maximize();
         driver.get(urlLogin);
 
         login(Config.getUserEmail(), originalPassword);

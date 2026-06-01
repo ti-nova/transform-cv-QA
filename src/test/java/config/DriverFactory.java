@@ -26,16 +26,28 @@ public class DriverFactory {
         return create(new ChromeOptions());
     }
 
-    /** Crea un ChromeDriver agregando, si está en CI, los flags requeridos. */
+    /**
+     * Crea un ChromeDriver listo para usar.
+     *  - En CI: agrega los flags requeridos por el runner y fija el tamaño de
+     *    ventana con --window-size (NO se llama a maximize(), porque en
+     *    Chrome 148 + xvfb maximize() falla con "Runtime.evaluate not found").
+     *  - Localmente: arranca Chrome normal y maximiza la ventana.
+     */
     public static WebDriver create(ChromeOptions options) {
-        if (isRunningInCi()) {
+        boolean ci = isRunningInCi();
+        if (ci) {
             options.addArguments(
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
-                "--disable-gpu"
+                "--disable-gpu",
+                "--window-size=1920,1080"
             );
         }
-        return new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver(options);
+        if (!ci) {
+            driver.manage().window().maximize();
+        }
+        return driver;
     }
 
     private static boolean isRunningInCi() {

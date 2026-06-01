@@ -49,7 +49,6 @@ public class TranformCvTest {
         driver = DriverFactory.create(options);
         wait   = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        driver.manage().window().maximize();
         driver.get(urlLogin);
 
         login(Config.getUserEmail(), Config.getUserPassword());
