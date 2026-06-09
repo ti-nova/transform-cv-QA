@@ -27,8 +27,16 @@ jobs:
     timeout-minutes: 30           # corta runs colgados
 
     steps:
-      - name: Checkout del código
+      - name: Checkout del QA repo (transform-cv-QA)
+        # Si este workflow es invocado desde OTRO repo vía workflow_call,
+        # actions/checkout por defecto traería el repo que llama, donde no
+        # están los tests. Forzamos siempre este repo (donde viven los tests).
+        # - Cuando se ejecuta acá mismo: usa github.ref (la rama / PR head).
+        # - Cuando lo invoca otro repo: usa 'main'.
         uses: actions/checkout@v4
+        with:
+          repository: ti-nova/transform-cv-QA
+          ref: ${{ github.repository == 'ti-nova/transform-cv-QA' && github.ref || 'main' }}
 
       - name: Setup Java 25
         uses: actions/setup-java@v4
