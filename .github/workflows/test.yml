@@ -10,6 +10,16 @@ on:
   # schedule:                     # opcional: corrida diaria, descomentar para activar
   #   - cron: '0 6 * * *'         # 06:00 UTC todos los días
 
+  # Permite que este workflow sea invocado desde OTROS repos (por ejemplo,
+  # desde Sharpe73/Tranform-cv en cada PR y push). El repo que llame debe
+  # pasarle los secrets USER_EMAIL y USER_PASSWORD.
+  workflow_call:
+    secrets:
+      USER_EMAIL:
+        required: true
+      USER_PASSWORD:
+        required: true
+
 jobs:
   test:
     name: Suite Selenium + TestNG
